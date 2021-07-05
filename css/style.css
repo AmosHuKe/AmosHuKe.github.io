@@ -2227,7 +2227,8 @@ p {
     margin: 0 0 0 1pc;
     cursor: pointer;
     border: none;
-    background: 0 0;
+    background: rgba(73,80,87,.9);
+    border-radius: 100%;
     outline: 0;
     position: fixed;
     top: 2pc;
@@ -2262,10 +2263,12 @@ p {
     animation-timing-function: ease-in-out
 }
 .MD-burger-layer:before {
-    bottom: 5px
+    bottom: 5px;
+    border-radius: 50px;
 }
 .MD-burger-layer:after {
-    top: 5px
+    top: 5px;
+    border-radius: 50px;
 }
 .MD-burger-arrow {
     -webkit-animation-name: MD-burger-icon-arrow;
