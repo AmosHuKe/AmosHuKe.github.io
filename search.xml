@@ -1109,6 +1109,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
   
     
     <entry>
+      <title><![CDATA[Photo]]></title>
+      <url>/gallery/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于我 🐾]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<hr>
@@ -1148,12 +1154,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
     <entry>
       <title><![CDATA[朋友们]]></title>
       <url>/links/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Photo]]></title>
-      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
