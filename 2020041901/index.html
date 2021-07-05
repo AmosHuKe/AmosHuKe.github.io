@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+        <link rel="dns-prefetch" href="https://cdn-city.livere.com">
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Vue及Ant-Design-Pro打包首屏优化 | 
+        
+        豆豆
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" href="https://amoshk.top/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://amoshk.top/favicon.ico">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="豆豆的博客 · Amos&#39;Blog">
+    <meta name="keywords" content="豆豆,豆豆博客,Amos Blog,Amos,Amoshk,记号,Vue,Vue-cli,Ant-Design,优化">
+    <meta name="theme-color" content="#495057">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?VuEJjuO9qUybPHUIM5ocCA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?dt36zwD1hpPlNB/bZfx6yw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Helvetica Neue, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei Light", "WenQuanYi Micro Hei", sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #495057;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #495057 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #495057 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #495057 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #495057;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #EDF1F7;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?ezyEvm8ST5CGfpA+kFFi1g==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="豆豆">
+    <meta name="msapplication-starturl" content="https://amoshk.top/2020041901/">
+    <meta name="msapplication-navbutton-color" content="#495057">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="豆豆">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+        
+            <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+        
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://amoshk.top/2020041901/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Vue及Ant-Design-Pro打包首屏优化 | 豆豆">
+    <meta property="og:image" content="/favicon.ico">
+    <meta property="og:description" content="豆豆的博客 · Amos&#39;Blog">
+    <meta property="og:article:tag" content="记号"> <meta property="og:article:tag" content="Vue"> <meta property="og:article:tag" content="Vue-cli"> <meta property="og:article:tag" content="Ant-Design"> <meta property="og:article:tag" content="优化"> 
+
+    
+        <meta property="article:published_time" content="Sun Apr 19 2020 21:42:00 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jul 03 2021 08:27:38 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://amoshk.top/2020041901/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://amoshk.top/2020041901/index.html",
+    "headline": "Vue及Ant-Design-Pro打包首屏优化",
+    "datePublished": "Sun Apr 19 2020 21:42:00 GMT+0800",
+    "dateModified": "Sat Jul 03 2021 08:27:38 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "AmosHk",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "👀 yooo"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "豆豆",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "favicon.ico"
+        }
+    },
+    "keywords": ",记号,Vue,Vue-cli,Ant-Design,优化豆豆,豆豆博客,Amos Blog,Amos,Amoshk",
+    "description": "豆豆的博客 · Amos&#39;Blog",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+        <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=https://s19.cnzz.com/z_stat.php?id=1271373527&amp;web_id=1271373527&web_id=https://s19.cnzz.com/z_stat.php?id=1271373527&amp;web_id=1271373527" language="JavaScript"></script>
+</div>
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#首先看效果🎐"><span class="post-toc-number">1.</span> <span class="post-toc-text">首先看效果🎐</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、优化前"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1、优化前</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、优化后"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2、优化后</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路🥓"><span class="post-toc-number">2.</span> <span class="post-toc-text">思路🥓</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、检查原因"><span class="post-toc-number">3.</span> <span class="post-toc-text">一、检查原因</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、打包分析-webpack-bundle-analyzer-插件"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1、打包分析 webpack-bundle-analyzer 插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、Chrome-性能分析"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2、Chrome 性能分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、解决方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">二、解决方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、删除（注释掉）未使用的依赖以及代码冗余"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">1、删除（注释掉）未使用的依赖以及代码冗余</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、productionSourceMap配置"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">2、productionSourceMap配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、路由懒加载"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">3、路由懒加载</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、AntDesign按需加载"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">4、AntDesign按需加载</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、Gzip压缩"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">5、Gzip压缩</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6、CDN加速"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">6、CDN加速</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7、视觉优化"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">7、视觉优化</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/random/2020041901/zhitu-des/compressed1.png)">
+    
+            <p class="article-headline-p">
+                Vue及Ant-Design-Pro打包首屏优化
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>AmosHk</strong>
+        <span>2020-04-19 21:42:00</span>
+        <span>👀 <span id="busuanzi_value_page_pv"></span> 次</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Ant-Design/">Ant-Design</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Vue/">Vue</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Vue-cli/">Vue-cli</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/优化/">优化</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/记号/">记号</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Vue及Ant-Design-Pro打包首屏优化&url=https://amoshk.top/2020041901/index.html&pic=https://amoshk.topfavicon.ico&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=豆豆&title=Vue及Ant-Design-Pro打包首屏优化&summary=豆豆的博客 · Amos&#39;Blog&pics=https://amoshk.topfavicon.ico&url=https://amoshk.top/2020041901/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    <p><span id="busuanzi_container_page_pv">
+    
+        <p>记录一下一些基础的优化处理方案😐（可能不全），Ant-Design-Pro的Vue版本快速地搭建好首屏之后，发现首次启动速度奇慢无比，经过优化之后能大大改善。</p>
+<blockquote>
+<p>主要体积从<code>7.07MB</code>优化至<code>2.72MB</code>（Gzip压缩后422.2KB）<br>首次加载从<code>9秒</code>左右提升至<code>2秒</code>左右  </p>
+<p>当前环境：  </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeJS</td>
+<td>V10.0 +</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td>V2.0</td>
+</tr>
+<tr>
+<td>Vue-cli</td>
+<td>V3.0 +</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sendya/ant-design-pro-vue" target="_blank" rel="noopener">Ant-Design-Pro-Vue</a></td>
+<td>V2.1.0（<a href="https://github.com/sendya/ant-design-pro-vue/blob/master/README.zh-CN.md#%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BE%9D%E8%B5%96" target="_blank" rel="noopener">具体的环境和依赖</a>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="首先看效果🎐"><a href="#首先看效果🎐" class="headerlink" title="首先看效果🎐"></a>首先看效果🎐</h2><h3 id="1、优化前"><a href="#1、优化前" class="headerlink" title="1、优化前"></a>1、优化前</h3><p>打包之后发现<code>vendor.js</code>占了<code>6.57MB</code>首次加载大约需要请求<code>9秒</code>才完毕，而其中使用率只占了<code>63.9%</code>，是主要影响性能的根源。  </p>
+<blockquote>
+<p>webpack-bundle-analyzer插件 打包后查看各个bundle体积占比图  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed1.png" alt="优化前">  </p>
+<blockquote>
+<p>加载呈现时间（受网络影响，大约）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed2.png" alt="优化前">  </p>
+<blockquote>
+<p>使用率（红色代表已使用，青色代表未使用）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed3.png" alt="优化前">  </p>
+<h3 id="2、优化后"><a href="#2、优化后" class="headerlink" title="2、优化后"></a>2、优化后</h3><p><code>vendor.js</code>占<code>2.29MB</code>首次加载大约需要请求<code>2秒</code>完毕，相对之前减少了<code>4.28MB</code>、<code>7秒</code>，速度比之前快<code>80%</code>，当然还有很多的优化空间，比如用Gzip压缩后只有<code>422.2KB</code>~  </p>
+<blockquote>
+<p>webpack-bundle-analyzer插件 打包后查看各个bundle体积占比图  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/compressed1.png" alt="优化后">  </p>
+<blockquote>
+<p>加载呈现时间（受网络影响，大约）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/compressed2.png" alt="优化后">  </p>
+<h2 id="思路🥓"><a href="#思路🥓" class="headerlink" title="思路🥓"></a>思路🥓</h2><blockquote>
+<p>大致可以参考下面几点去进行简单的优化  </p>
+</blockquote>
+<ul>
+<li><p>检查原因（为什么慢？网络？冗余？没用的依赖？）  </p>
+<ul>
+<li>打包分析 webpack-bundle-analyzer 插件  </li>
+<li>Chrome 性能分析（Network、Coverage）等  </li>
+<li>检查自身代码组件冗余等……  </li>
+</ul>
+</li>
+<li><p>解决方法  </p>
+<ul>
+<li>删除（注释掉）未使用的依赖以及代码冗余</li>
+<li>productionSourceMap配置</li>
+<li>路由懒加载</li>
+<li>AntDesign按需加载</li>
+<li>Gzip压缩</li>
+<li>CDN加速</li>
+<li>视觉优化（加载动画、骨架屏等）</li>
+</ul>
+</li>
+</ul>
+<h2 id="一、检查原因"><a href="#一、检查原因" class="headerlink" title="一、检查原因"></a>一、检查原因</h2><h3 id="1、打包分析-webpack-bundle-analyzer-插件"><a href="#1、打包分析-webpack-bundle-analyzer-插件" class="headerlink" title="1、打包分析 webpack-bundle-analyzer 插件"></a>1、打包分析 webpack-bundle-analyzer 插件</h3><p>（1）首先安装 <code>webpack-bundle-analyzer</code>  </p>
+<blockquote>
+<p>npm install webpack-bundle-analyzer –save-dev  </p>
+</blockquote>
+<p>（2）在<code>vue-config.js</code>中添加分析工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  chainWebpack: (config) =&gt; &#123;</span><br><span class="line">    /* 添加分析工具 */</span><br><span class="line">    if (process.env.NODE_ENV === &apos;production&apos;) &#123;</span><br><span class="line">      config</span><br><span class="line">        .plugin(&apos;webpack-bundle-analyzer&apos;)</span><br><span class="line">        .use(require(&apos;webpack-bundle-analyzer&apos;).BundleAnalyzerPlugin)</span><br><span class="line">        .end()</span><br><span class="line">      config.plugins.delete(&apos;prefetch&apos;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）编写完成代码后，打包进行分析。  </p>
+<blockquote>
+<p>npm run build –report  </p>
+</blockquote>
+<p>（4）打包完成后会启动页面，一般是<code>http://127.0.0.1:8888/</code>，进入就可以看见分析，具体分析是否有过于庞大、未使用的依赖、组件等。</p>
+<p><img src="/img/random/2020041901/zhitu-des/compressed1.png" alt="打包分析">  </p>
+<h3 id="2、Chrome-性能分析"><a href="#2、Chrome-性能分析" class="headerlink" title="2、Chrome 性能分析"></a>2、Chrome 性能分析</h3><p>启动项目网页，按<code>F12</code>打开</p>
+<p>使用<code>Network</code>、<code>Coverage</code>等工具作为参考，分析大致可能出现的问题，比如过多未使用的依赖或者代码冗余等。</p>
+<p><img src="/img/random/2020041901/zhitu-des/Network.png" alt="Network">  </p>
+<p><img src="/img/random/2020041901/zhitu-des/Coverage.png" alt="Coverage">  </p>
+<h2 id="二、解决方法"><a href="#二、解决方法" class="headerlink" title="二、解决方法"></a>二、解决方法</h2><h3 id="1、删除（注释掉）未使用的依赖以及代码冗余"><a href="#1、删除（注释掉）未使用的依赖以及代码冗余" class="headerlink" title="1、删除（注释掉）未使用的依赖以及代码冗余"></a>1、删除（注释掉）未使用的依赖以及代码冗余</h3><blockquote>
+<p>根据上方<code>检查原因</code>处安装好<code>webpack-bundle-analyzer</code>插件<br>分析出过多未使用的依赖或者代码冗余等<br>进行注释或者删除  </p>
+</blockquote>
+<p>示例：  </p>
+<p>在使用<code>Ant-Design-Pro-Vue</code>中，发现<code>AntV</code>（图表库）占的大小足足有<code>3.22MB</code>的大小，加上项目中不会使用图表库，果断注释掉。<br>优化好代码冗余、组件等，总共减少<code>4.28MB</code>，满足~  </p>
+<p><img src="/img/random/2020041901/zhitu-des/yh-non-compressed1.png" alt="优化前">  </p>
+<h3 id="2、productionSourceMap配置"><a href="#2、productionSourceMap配置" class="headerlink" title="2、productionSourceMap配置"></a>2、productionSourceMap配置</h3><blockquote>
+<p>productionSourceMap简单来说，就是一个可以在打包后生成一堆Map的文件，帮助在压缩打包后辅助检查项目错误（错误具体在哪个地方），这东西不仅会增加体积，而且在生产环境中会暴露很多信息，直接false  </p>
+</blockquote>
+<p>修改<code>vue-config.js</code>配置  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  productionSourceMap: <span class="literal">false</span>, <span class="comment">// 是否在构建生产包时生成 sourceMap 文件，false将提高构建速度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、路由懒加载"><a href="#3、路由懒加载" class="headerlink" title="3、路由懒加载"></a>3、路由懒加载</h3><blockquote>
+<p>通过声明以函数的形式动态引入，就可以把各自的路由文件分别打包，只有在解析给定的路由时，才会下载路由对应的组件，优化性能的同时，但是会增加整体包的体积（视情况使用）  </p>
+</blockquote>
+<p>具体可以查看官方文档<a href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" target="_blank" rel="noopener">Vue-Router路由懒加载</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'home'</span>,</span><br><span class="line">  name: <span class="string">'home'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "home" */</span> <span class="string">'@/views/website/home/Home'</span>),</span><br><span class="line">  meta: &#123; <span class="attr">title</span>: <span class="string">'首页'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">permission</span>: [ <span class="string">'website'</span> ] &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在动态<code>import()</code>代码处添加注释<code>webpackChunkName</code>告诉<code>webpack</code>打包后的<code>Chunk</code>的名称（注释中的内容很重要，不能省掉），打包以后的<code>name</code>就是<code>home</code>，最终打包后就会生成独立的<code>home.js</code></p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/router1.png" alt="路由懒加载">  </p>
+<h3 id="4、AntDesign按需加载"><a href="#4、AntDesign按需加载" class="headerlink" title="4、AntDesign按需加载"></a>4、AntDesign按需加载</h3><blockquote>
+<p>不只是<code>AntDesign</code>，只要是支持按需加载的都可以进行使用，部分框架使用方式可能有所不同  </p>
+</blockquote>
+<p>如下示例只引入需要的框架组件：  </p>
+<p><img src="/img/random/2020041901/zhitu-des/antd1.png" alt="AntDesign按需加载">  </p>
+<blockquote>
+<p> 按需加载  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/antd2.png" alt="AntDesign按需加载">  </p>
+<h3 id="5、Gzip压缩"><a href="#5、Gzip压缩" class="headerlink" title="5、Gzip压缩"></a>5、Gzip压缩</h3><blockquote>
+<p>做了以上的优化之后，我们还可以进行Gzip压缩一下，可以极大的减少体积，当然需要配置服务器支持Gzip  </p>
+</blockquote>
+<p>安装<code>compression-webpack-plugin</code>  </p>
+<blockquote>
+<p>npm install compression-webpack-plugin  </p>
+</blockquote>
+<p>在<code>vue-config.js</code>中添加配置  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入compression-webpack-plugin</span></span><br><span class="line"><span class="keyword">const</span> CompressionWebpackPlugin = <span class="built_in">require</span>(<span class="string">'compression-webpack-plugin'</span>)</span><br><span class="line"><span class="comment">// 定义压缩文件类型</span></span><br><span class="line"><span class="keyword">const</span> productionGzipExtensions = [<span class="string">'js'</span>, <span class="string">'css'</span>]</span><br><span class="line"></span><br><span class="line">configureWebpack: &#123;</span><br><span class="line">  <span class="comment">// webpack plugins</span></span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// gzip压缩</span></span><br><span class="line">    <span class="keyword">new</span> CompressionWebpackPlugin(&#123;</span><br><span class="line">      filename: <span class="string">'[path].gz[query]'</span>,</span><br><span class="line">      algorithm: <span class="string">'gzip'</span>,</span><br><span class="line">      test: <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\.('</span> + productionGzipExtensions.join(<span class="string">'|'</span>) + <span class="string">')$'</span>),</span><br><span class="line">      threshold: <span class="number">10240</span>,</span><br><span class="line">      minRatio: <span class="number">0.8</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>打包后文件夹内容  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/gzip.png" alt="Gzip">  </p>
+<blockquote>
+<p>然后服务端再做出对应支持gzip的配置<br>请求响应是就能够看见头Headers中是gzip  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/headers.png" alt="Gzip">  </p>
+<h3 id="6、CDN加速"><a href="#6、CDN加速" class="headerlink" title="6、CDN加速"></a>6、CDN加速</h3><blockquote>
+<p>Vue、Vuex、Vue-Router、Axios等我们可以利用<code>webpack</code>的<code>externals</code>参数来配置，添加在生产环境中</p>
+</blockquote>
+<p>在<code>vue-config.js</code>中添加  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> assetsCDN = &#123;</span><br><span class="line">  <span class="comment">// webpack build externals</span></span><br><span class="line">  externals: &#123;</span><br><span class="line">    vue: <span class="string">'Vue'</span>,</span><br><span class="line">    <span class="string">'vue-router'</span>: <span class="string">'VueRouter'</span>,</span><br><span class="line">    vuex: <span class="string">'Vuex'</span>,</span><br><span class="line">    axios: <span class="string">'axios'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  css: [],</span><br><span class="line">  <span class="comment">// https://unpkg.com/browse/vue@2.6.10/</span></span><br><span class="line">  js: [</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"><span class="keyword">const</span> vueConfig = &#123;</span><br><span class="line">  configureWebpack: &#123;</span><br><span class="line">    <span class="comment">// webpack plugins</span></span><br><span class="line">    <span class="comment">// if prod, add externals</span></span><br><span class="line">    externals: isProd ? assetsCDN.externals : &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  chainWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if prod is on</span></span><br><span class="line">    <span class="comment">// assets require on cdn</span></span><br><span class="line">    <span class="keyword">if</span> (isProd) &#123;</span><br><span class="line">      config.plugin(<span class="string">'html'</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">        args[<span class="number">0</span>].cdn = assetsCDN</span><br><span class="line">        <span class="keyword">return</span> args</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = vueConfig</span><br></pre></td></tr></table></figure>
+<p>在<code>index.html</code>中加入CDN  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-cmn-Hans"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"icon"</span> <span class="attr">href</span>=<span class="string">"&lt;%= BASE_URL %&gt;logo.png"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xxxx<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入CSS的CDN --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">for</span> (<span class="attr">var</span> <span class="attr">i</span> <span class="attr">in</span> <span class="attr">htmlWebpackPlugin.options.cdn</span> &amp;&amp; <span class="attr">htmlWebpackPlugin.options.cdn.css</span>) &#123; %&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&lt;%= htmlWebpackPlugin.options.cdn.css[i] %&gt;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">strong</span>&gt;</span>请使用主流浏览器访问（谷歌浏览器、QQ浏览器等）. Please enable it to continue.<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入JS的CDN --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">for</span> (<span class="attr">var</span> <span class="attr">i</span> <span class="attr">in</span> <span class="attr">htmlWebpackPlugin.options.cdn</span> &amp;&amp; <span class="attr">htmlWebpackPlugin.options.cdn.js</span>) &#123; %&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"&lt;%= htmlWebpackPlugin.options.cdn.js[i] %&gt;"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="7、视觉优化"><a href="#7、视觉优化" class="headerlink" title="7、视觉优化"></a>7、视觉优化</h3><blockquote>
+<p>鲁迅说过：优化做好，动画来凑  </p>
+</blockquote>
+<p>在性能上做了基本的工作之后，还可以对用户体验加以增加。<br>比如：加载动画、骨架屏（<a href="https://www.antdv.com/components/skeleton-cn/" target="_blank" rel="noopener">AntDesign骨架屏</a>）、占位符等……</p>
+
+        
+                <blockquote style="font-size:0.9em; margin: 4em 0 0;padding: 0.5em 1em;border-left: 3px solid #ff7875;background-color: #F5F5F5;list-style: none;">
+                    <p>
+                         
+                            转载请遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank"><img src="/img/cc-by-nc-sa.svg" style="width: 86px;border-radius: 0px;"></a> 协议许可 <span id="author-avatar"><img src="/img/avatar.png" width="20px" height="20px" alt="AmosHk"></span>
+                        
+                        <br>
+                        本文链接 <a href="https://amoshk.top/2020041901/">https://amoshk.top/2020041901/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 来必力 -->
+<div id="livere-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjk5MC85NTUy">
+	<script type="text/ls-javascript" id="livere-comment-js">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+</div>
+</div>
+<style>
+    #livere-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2020071901/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2019100701/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.gif);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="AmosHk's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        AmosHk
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="/about" target="_blank" title="关于">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">person</i>
+                        
+                        关于
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/AmosHuKe" target="_blank" title="Github">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">open_in_new</i>
+                        
+                        Github
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://steamcommunity.com/id/Amoshuke/" target="_blank" title="Steam">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">videogame_asset</i>
+                        
+                        Steam
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/游戏/">游戏<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/生活/">生活<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/categories/生活/装备/">装备<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/记号/">记号<span class="sidebar_archives-count">8</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签">
+                
+                    <i class="material-icons sidebar-material-icons">cloud</i>
+                
+                标签
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="图库">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                图库
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="朋友">
+                
+                    <i class="material-icons sidebar-material-icons">people</i>
+                
+                朋友
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于 / 留言">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于 / 留言
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+    <span id="footer-image">
+        <a href="https://github.com/AmosHuKe" target="_blank" title="AmosHuKe">
+            <img src="/img/footer/footer_ico-github.svg" alt="AmosHuKe"><!--
+     --></a>
+    </span>
+
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/AmosHuKe" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            <div>
+                Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>AmosHk. <span id="author-avatar"><img src="/img/avatar.png" width="20px" height="20px" alt="AmosHk's avatar"></span>
+            </div>
+            <br/>
+            <div>
+                
+                    <a href="/atom.xml">文章 RSS</a> / 
+                
+                <a href="/sitemap.xml">站点地图</a> / 
+                <a href="/about">关于我 🐾</a>
+            </div>
+            <br/>
+            
+            <!-- 不蒜子 -->
+            <div>
+                <!-- 不蒜子 兼容 live2d 思路，既然他会把第一个不蒜子干掉，那我们就制造一个让他干掉！ -->
+                <div style="display: none;"><span id="busuanzi_container_site_uv"></span><span id="busuanzi_container_site_pv"></span></div>
+                <!--  -->
+                <span id="busuanzi_container_site_uv">你是第<span id="busuanzi_value_site_uv"></span>颗豆豆</span> / 
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+            </div>
+            <br/>
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">
+                    <a href="https://hexo.io" target="_blank" class="footer-develop-a">
+                        <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" title="框架：Hexo">
+                    </a>
+                    <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">
+                        <img src="https://img.shields.io/badge/Theme-Material-EA1E63" title="主题：Material">
+                    </a>
+                </div>
+                <div class="footer-develop-div">
+                    <a href="https://github.com/EYHN/hexo-helper-live2d" target="_blank" class="footer-develop-a">
+                        <img src="https://img.shields.io/badge/live2d-hexo helper live2d-8EBC07" title="live2d">
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#495057'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #495057, 0 0 15px #495057'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#495057',
+        'border-left-color': '#495057'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":150,"position":"right","hOffset":-32,"vOffset":64},"mobile":{"show":true,"scale":0.8},"react":{"opacity":0.8},"log":false});</script></body>
+    
+</html>

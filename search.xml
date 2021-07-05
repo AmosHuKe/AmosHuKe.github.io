@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[桌面2.0 🎯]]></title>
+      <url>/2021062901/</url>
+      <content type="html"><![CDATA[<p>时隔一年多的桌面，我不出意外的看腻了，生活还是需要些新鲜感。<br>空闲时正好找了一下午折腾，规划规划工作、游戏、书写的空间，买了些需要的物件，装装改改大功告成。<br>纪念一下！</p>
+<p><img src="/img/random/2021062901/zhitu-des/1.jpg" alt="computer"> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[uni-app原生TabBar动画解决方案]]></title>
+      <url>/2020071901/</url>
+      <content type="html"><![CDATA[<p>想在uni-app的原生TabBar上做一个模拟按下回弹的动画（也可衍生其他动画效果），在查阅官方文档以及各方搜寻后，发现还没有相关的文章说明（也许是太简单了😂），我这里记录个相对简单的解决方案（可自行举一反三）。</p>
+<blockquote>
+<p>PS：如果使用的是自定义TabBar有更容易且合理的实现方式，这里只是说明uni-app的原生TabBar（可能不合理）。  </p>
+</blockquote>
+<p><br></p>
+<h2 id="🎉-效果"><a href="#🎉-效果" class="headerlink" title="🎉 效果"></a>🎉 效果</h2><blockquote>
+<p>模拟按下回弹  </p>
+</blockquote>
+<p><img src="/img/random/2020071901/1.gif" alt="模拟按下回弹">  </p>
+<p><br></p>
+<blockquote>
+<p>可模拟更完全的动画例子（招商掌上生活APP）  </p>
+</blockquote>
+<p><img height="64px" src="/img/random/2020071901/2.gif">  </p>
+<h2 id="🎇-思路"><a href="#🎇-思路" class="headerlink" title="🎇 思路"></a>🎇 思路</h2><blockquote>
+<p>引：在<code>pages.json</code>中配置<a href="https://uniapp.dcloud.io/collocation/pages?id=tabbar" target="_blank" rel="noopener">原生tabBar</a>的<code>selectedIconPath</code>图片地址时用GIF图，选中菜单可达到触发模拟想要的动画效果。<br>但只是在<code>pages.json</code>中配置GIF，会有如：多次点击菜单重复触发GIF、小程序不兼容直接配置GIF报错 等情况……  </p>
+</blockquote>
+<p><br></p>
+<p>为了解决这一系列的问题，有个简单的思路：<br>在每次触发对应<code>TabBar</code>菜单选中时，利用<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e9%a1%b5%e9%9d%a2%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" target="_blank" rel="noopener">页面生命周期</a>的<code>onShow</code>检测触发，<br><a href="https://uniapp.dcloud.io/api/ui/tabbar?id=settabbaritem" target="_blank" rel="noopener">动态设置TabBar</a>对应菜单的<code>selectedIconPath</code>为GIF，<br>并在动画完成后再<a href="https://uniapp.dcloud.io/api/ui/tabbar?id=settabbaritem" target="_blank" rel="noopener">动态设置TabBar</a>对应菜单的<code>selectedIconPath</code>为动画最后一帧的静态图片。  </p>
+<p><br></p>
+<h2 id="🧤-实现"><a href="#🧤-实现" class="headerlink" title="🧤 实现"></a>🧤 实现</h2><p><br></p>
+<h3 id="1、准备素材"><a href="#1、准备素材" class="headerlink" title="1、准备素材"></a>1、准备素材</h3><ul>
+<li>未选中时的图片，选中时的GIF，选中后的图片（一般为GIF的最后一帧）  </li>
+</ul>
+<p><img src="/img/random/2020071901/4.png" alt="素材">  </p>
+<ul>
+<li>我这里是用的<code>Photoshop</code>制作GIF  </li>
+</ul>
+<p><img src="/img/random/2020071901/3.gif" alt="GIF制作">  </p>
+<p><br></p>
+<h3 id="2、pages-json配置TabBar"><a href="#2、pages-json配置TabBar" class="headerlink" title="2、pages.json配置TabBar"></a>2、<code>pages.json</code>配置<code>TabBar</code></h3><ul>
+<li>TabBar部分，具体查看 <a href="https://uniapp.dcloud.io/collocation/pages?id=tabbar" target="_blank" rel="noopener">配置tabBar</a>  </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">"tabBar": &#123;</span><br><span class="line">    "list": [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"pagePath"</span>: <span class="string">"pages/circle/index"</span>,</span><br><span class="line">            "iconPath": "static/tabBar/circle.png", // 未选中时的图片 图标 40kb 81*81</span><br><span class="line">            "selectedIconPath": "static/tabBar/circle-selected.png", // 选中后的图片（一般为GIF的最后一帧）</span><br><span class="line">            "text": "浏览"</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"pagePath"</span>: <span class="string">"pages/message/index"</span>,</span><br><span class="line">            <span class="attr">"iconPath"</span>: <span class="string">"static/tabBar/message.png"</span>,</span><br><span class="line">            <span class="attr">"selectedIconPath"</span>: <span class="string">"static/tabBar/message-selected.png"</span>,</span><br><span class="line">            <span class="attr">"text"</span>: <span class="string">"消息"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"pagePath"</span>: <span class="string">"pages/user/index"</span>,</span><br><span class="line">            <span class="attr">"iconPath"</span>: <span class="string">"static/tabBar/user.png"</span>,</span><br><span class="line">            <span class="attr">"selectedIconPath"</span>: <span class="string">"static/tabBar/user-selected.png"</span>,</span><br><span class="line">            <span class="attr">"text"</span>: <span class="string">"我的"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="3、触发动画"><a href="#3、触发动画" class="headerlink" title="3、触发动画"></a>3、触发动画</h3><blockquote>
+<p>在对应<code>TabBar</code>菜单页面中，利用<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e9%a1%b5%e9%9d%a2%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" target="_blank" rel="noopener">页面生命周期</a>的<code>onShow</code>检测触发，<a href="https://uniapp.dcloud.io/api/ui/tabbar?id=settabbaritem" target="_blank" rel="noopener">动态设置TabBar</a>对应菜单的<code>selectedIconPath</code>为GIF，并在动画完成后再<a href="https://uniapp.dcloud.io/api/ui/tabbar?id=settabbaritem" target="_blank" rel="noopener">动态设置TabBar</a>对应菜单的<code>selectedIconPath</code>为动画最后一帧的静态图片。  </p>
+</blockquote>
+<ul>
+<li>触发方法，我这里是写在<code>common/util.js中</code>  </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * TabBar切换动画</span></span><br><span class="line"><span class="comment"> * @param &#123;Number&#125; index      tabBar下标（如：第一个菜单为0)</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; imgUrl     选中后图片地址（GIF最后一帧）</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; gifUrl     GIF地址</span></span><br><span class="line"><span class="comment"> * @param &#123;Number&#125; delayTime  动画时间 毫秒（取GIF时间）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">animationTabBar</span>(<span class="params">&#123;index, imgUrl, gifUrl, delayTime&#125;</span>) </span>&#123;</span><br><span class="line">    delayTime = delayTime != <span class="string">''</span> ? delayTime : <span class="number">0</span>; <span class="comment">// 延迟触发时间</span></span><br><span class="line">    <span class="comment">// 切换GIF触发动画</span></span><br><span class="line">    uni.setTabBarItem(&#123;</span><br><span class="line">        index: index,</span><br><span class="line">        selectedIconPath: gifUrl</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 为了避免重复触发，延迟切换回选中后的图片</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        uni.setTabBarItem(&#123;</span><br><span class="line">            index: index,</span><br><span class="line">            selectedIconPath: imgUrl</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;, delayTime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    animationTabBar: animationTabBar <span class="comment">// TabBar切换动画</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li>对应<code>TabBar</code>页面触发</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 引入方法</span></span><br><span class="line"><span class="keyword">import</span> &#123; animationTabBar &#125; <span class="keyword">from</span> <span class="string">'@/common/util.js'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    onShow() &#123;</span><br><span class="line">        animationTabBar(&#123;</span><br><span class="line">            index: <span class="number">2</span>, <span class="comment">// tabBar下标（如：第一个菜单为0)</span></span><br><span class="line">            imgUrl: <span class="string">"static/tabBar/user-selected.png"</span>, <span class="comment">// 选中后图片地址（GIF最后一帧）</span></span><br><span class="line">            gifUrl: <span class="string">"static/tabBar/user-selected.gif"</span>, <span class="comment">// GIF地址</span></span><br><span class="line">            delayTime: <span class="number">100</span> <span class="comment">// 动画时间 毫秒（取GIF时间，自行估算）</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> uni-app </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue及Ant-Design-Pro打包首屏优化]]></title>
+      <url>/2020041901/</url>
+      <content type="html"><![CDATA[<p>记录一下一些基础的优化处理方案😐（可能不全），Ant-Design-Pro的Vue版本快速地搭建好首屏之后，发现首次启动速度奇慢无比，经过优化之后能大大改善。</p>
+<blockquote>
+<p>主要体积从<code>7.07MB</code>优化至<code>2.72MB</code>（Gzip压缩后422.2KB）<br>首次加载从<code>9秒</code>左右提升至<code>2秒</code>左右  </p>
+<p>当前环境：  </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeJS</td>
+<td>V10.0 +</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td>V2.0</td>
+</tr>
+<tr>
+<td>Vue-cli</td>
+<td>V3.0 +</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sendya/ant-design-pro-vue" target="_blank" rel="noopener">Ant-Design-Pro-Vue</a></td>
+<td>V2.1.0（<a href="https://github.com/sendya/ant-design-pro-vue/blob/master/README.zh-CN.md#%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BE%9D%E8%B5%96" target="_blank" rel="noopener">具体的环境和依赖</a>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="首先看效果🎐"><a href="#首先看效果🎐" class="headerlink" title="首先看效果🎐"></a>首先看效果🎐</h2><h3 id="1、优化前"><a href="#1、优化前" class="headerlink" title="1、优化前"></a>1、优化前</h3><p>打包之后发现<code>vendor.js</code>占了<code>6.57MB</code>首次加载大约需要请求<code>9秒</code>才完毕，而其中使用率只占了<code>63.9%</code>，是主要影响性能的根源。  </p>
+<blockquote>
+<p>webpack-bundle-analyzer插件 打包后查看各个bundle体积占比图  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed1.png" alt="优化前">  </p>
+<blockquote>
+<p>加载呈现时间（受网络影响，大约）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed2.png" alt="优化前">  </p>
+<blockquote>
+<p>使用率（红色代表已使用，青色代表未使用）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/non-compressed3.png" alt="优化前">  </p>
+<h3 id="2、优化后"><a href="#2、优化后" class="headerlink" title="2、优化后"></a>2、优化后</h3><p><code>vendor.js</code>占<code>2.29MB</code>首次加载大约需要请求<code>2秒</code>完毕，相对之前减少了<code>4.28MB</code>、<code>7秒</code>，速度比之前快<code>80%</code>，当然还有很多的优化空间，比如用Gzip压缩后只有<code>422.2KB</code>~  </p>
+<blockquote>
+<p>webpack-bundle-analyzer插件 打包后查看各个bundle体积占比图  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/compressed1.png" alt="优化后">  </p>
+<blockquote>
+<p>加载呈现时间（受网络影响，大约）  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/compressed2.png" alt="优化后">  </p>
+<h2 id="思路🥓"><a href="#思路🥓" class="headerlink" title="思路🥓"></a>思路🥓</h2><blockquote>
+<p>大致可以参考下面几点去进行简单的优化  </p>
+</blockquote>
+<ul>
+<li><p>检查原因（为什么慢？网络？冗余？没用的依赖？）  </p>
+<ul>
+<li>打包分析 webpack-bundle-analyzer 插件  </li>
+<li>Chrome 性能分析（Network、Coverage）等  </li>
+<li>检查自身代码组件冗余等……  </li>
+</ul>
+</li>
+<li><p>解决方法  </p>
+<ul>
+<li>删除（注释掉）未使用的依赖以及代码冗余</li>
+<li>productionSourceMap配置</li>
+<li>路由懒加载</li>
+<li>AntDesign按需加载</li>
+<li>Gzip压缩</li>
+<li>CDN加速</li>
+<li>视觉优化（加载动画、骨架屏等）</li>
+</ul>
+</li>
+</ul>
+<h2 id="一、检查原因"><a href="#一、检查原因" class="headerlink" title="一、检查原因"></a>一、检查原因</h2><h3 id="1、打包分析-webpack-bundle-analyzer-插件"><a href="#1、打包分析-webpack-bundle-analyzer-插件" class="headerlink" title="1、打包分析 webpack-bundle-analyzer 插件"></a>1、打包分析 webpack-bundle-analyzer 插件</h3><p>（1）首先安装 <code>webpack-bundle-analyzer</code>  </p>
+<blockquote>
+<p>npm install webpack-bundle-analyzer –save-dev  </p>
+</blockquote>
+<p>（2）在<code>vue-config.js</code>中添加分析工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  chainWebpack: (config) =&gt; &#123;</span><br><span class="line">    /* 添加分析工具 */</span><br><span class="line">    if (process.env.NODE_ENV === &apos;production&apos;) &#123;</span><br><span class="line">      config</span><br><span class="line">        .plugin(&apos;webpack-bundle-analyzer&apos;)</span><br><span class="line">        .use(require(&apos;webpack-bundle-analyzer&apos;).BundleAnalyzerPlugin)</span><br><span class="line">        .end()</span><br><span class="line">      config.plugins.delete(&apos;prefetch&apos;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）编写完成代码后，打包进行分析。  </p>
+<blockquote>
+<p>npm run build –report  </p>
+</blockquote>
+<p>（4）打包完成后会启动页面，一般是<code>http://127.0.0.1:8888/</code>，进入就可以看见分析，具体分析是否有过于庞大、未使用的依赖、组件等。</p>
+<p><img src="/img/random/2020041901/zhitu-des/compressed1.png" alt="打包分析">  </p>
+<h3 id="2、Chrome-性能分析"><a href="#2、Chrome-性能分析" class="headerlink" title="2、Chrome 性能分析"></a>2、Chrome 性能分析</h3><p>启动项目网页，按<code>F12</code>打开</p>
+<p>使用<code>Network</code>、<code>Coverage</code>等工具作为参考，分析大致可能出现的问题，比如过多未使用的依赖或者代码冗余等。</p>
+<p><img src="/img/random/2020041901/zhitu-des/Network.png" alt="Network">  </p>
+<p><img src="/img/random/2020041901/zhitu-des/Coverage.png" alt="Coverage">  </p>
+<h2 id="二、解决方法"><a href="#二、解决方法" class="headerlink" title="二、解决方法"></a>二、解决方法</h2><h3 id="1、删除（注释掉）未使用的依赖以及代码冗余"><a href="#1、删除（注释掉）未使用的依赖以及代码冗余" class="headerlink" title="1、删除（注释掉）未使用的依赖以及代码冗余"></a>1、删除（注释掉）未使用的依赖以及代码冗余</h3><blockquote>
+<p>根据上方<code>检查原因</code>处安装好<code>webpack-bundle-analyzer</code>插件<br>分析出过多未使用的依赖或者代码冗余等<br>进行注释或者删除  </p>
+</blockquote>
+<p>示例：  </p>
+<p>在使用<code>Ant-Design-Pro-Vue</code>中，发现<code>AntV</code>（图表库）占的大小足足有<code>3.22MB</code>的大小，加上项目中不会使用图表库，果断注释掉。<br>优化好代码冗余、组件等，总共减少<code>4.28MB</code>，满足~  </p>
+<p><img src="/img/random/2020041901/zhitu-des/yh-non-compressed1.png" alt="优化前">  </p>
+<h3 id="2、productionSourceMap配置"><a href="#2、productionSourceMap配置" class="headerlink" title="2、productionSourceMap配置"></a>2、productionSourceMap配置</h3><blockquote>
+<p>productionSourceMap简单来说，就是一个可以在打包后生成一堆Map的文件，帮助在压缩打包后辅助检查项目错误（错误具体在哪个地方），这东西不仅会增加体积，而且在生产环境中会暴露很多信息，直接false  </p>
+</blockquote>
+<p>修改<code>vue-config.js</code>配置  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  productionSourceMap: <span class="literal">false</span>, <span class="comment">// 是否在构建生产包时生成 sourceMap 文件，false将提高构建速度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、路由懒加载"><a href="#3、路由懒加载" class="headerlink" title="3、路由懒加载"></a>3、路由懒加载</h3><blockquote>
+<p>通过声明以函数的形式动态引入，就可以把各自的路由文件分别打包，只有在解析给定的路由时，才会下载路由对应的组件，优化性能的同时，但是会增加整体包的体积（视情况使用）  </p>
+</blockquote>
+<p>具体可以查看官方文档<a href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" target="_blank" rel="noopener">Vue-Router路由懒加载</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'home'</span>,</span><br><span class="line">  name: <span class="string">'home'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "home" */</span> <span class="string">'@/views/website/home/Home'</span>),</span><br><span class="line">  meta: &#123; <span class="attr">title</span>: <span class="string">'首页'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">permission</span>: [ <span class="string">'website'</span> ] &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在动态<code>import()</code>代码处添加注释<code>webpackChunkName</code>告诉<code>webpack</code>打包后的<code>Chunk</code>的名称（注释中的内容很重要，不能省掉），打包以后的<code>name</code>就是<code>home</code>，最终打包后就会生成独立的<code>home.js</code></p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/router1.png" alt="路由懒加载">  </p>
+<h3 id="4、AntDesign按需加载"><a href="#4、AntDesign按需加载" class="headerlink" title="4、AntDesign按需加载"></a>4、AntDesign按需加载</h3><blockquote>
+<p>不只是<code>AntDesign</code>，只要是支持按需加载的都可以进行使用，部分框架使用方式可能有所不同  </p>
+</blockquote>
+<p>如下示例只引入需要的框架组件：  </p>
+<p><img src="/img/random/2020041901/zhitu-des/antd1.png" alt="AntDesign按需加载">  </p>
+<blockquote>
+<p> 按需加载  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/antd2.png" alt="AntDesign按需加载">  </p>
+<h3 id="5、Gzip压缩"><a href="#5、Gzip压缩" class="headerlink" title="5、Gzip压缩"></a>5、Gzip压缩</h3><blockquote>
+<p>做了以上的优化之后，我们还可以进行Gzip压缩一下，可以极大的减少体积，当然需要配置服务器支持Gzip  </p>
+</blockquote>
+<p>安装<code>compression-webpack-plugin</code>  </p>
+<blockquote>
+<p>npm install compression-webpack-plugin  </p>
+</blockquote>
+<p>在<code>vue-config.js</code>中添加配置  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入compression-webpack-plugin</span></span><br><span class="line"><span class="keyword">const</span> CompressionWebpackPlugin = <span class="built_in">require</span>(<span class="string">'compression-webpack-plugin'</span>)</span><br><span class="line"><span class="comment">// 定义压缩文件类型</span></span><br><span class="line"><span class="keyword">const</span> productionGzipExtensions = [<span class="string">'js'</span>, <span class="string">'css'</span>]</span><br><span class="line"></span><br><span class="line">configureWebpack: &#123;</span><br><span class="line">  <span class="comment">// webpack plugins</span></span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="comment">// gzip压缩</span></span><br><span class="line">    <span class="keyword">new</span> CompressionWebpackPlugin(&#123;</span><br><span class="line">      filename: <span class="string">'[path].gz[query]'</span>,</span><br><span class="line">      algorithm: <span class="string">'gzip'</span>,</span><br><span class="line">      test: <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\.('</span> + productionGzipExtensions.join(<span class="string">'|'</span>) + <span class="string">')$'</span>),</span><br><span class="line">      threshold: <span class="number">10240</span>,</span><br><span class="line">      minRatio: <span class="number">0.8</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>打包后文件夹内容  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/gzip.png" alt="Gzip">  </p>
+<blockquote>
+<p>然后服务端再做出对应支持gzip的配置<br>请求响应是就能够看见头Headers中是gzip  </p>
+</blockquote>
+<p><img src="/img/random/2020041901/zhitu-des/headers.png" alt="Gzip">  </p>
+<h3 id="6、CDN加速"><a href="#6、CDN加速" class="headerlink" title="6、CDN加速"></a>6、CDN加速</h3><blockquote>
+<p>Vue、Vuex、Vue-Router、Axios等我们可以利用<code>webpack</code>的<code>externals</code>参数来配置，添加在生产环境中</p>
+</blockquote>
+<p>在<code>vue-config.js</code>中添加  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> assetsCDN = &#123;</span><br><span class="line">  <span class="comment">// webpack build externals</span></span><br><span class="line">  externals: &#123;</span><br><span class="line">    vue: <span class="string">'Vue'</span>,</span><br><span class="line">    <span class="string">'vue-router'</span>: <span class="string">'VueRouter'</span>,</span><br><span class="line">    vuex: <span class="string">'Vuex'</span>,</span><br><span class="line">    axios: <span class="string">'axios'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  css: [],</span><br><span class="line">  <span class="comment">// https://unpkg.com/browse/vue@2.6.10/</span></span><br><span class="line">  js: [</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js'</span>,</span><br><span class="line">    <span class="string">'//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"><span class="keyword">const</span> vueConfig = &#123;</span><br><span class="line">  configureWebpack: &#123;</span><br><span class="line">    <span class="comment">// webpack plugins</span></span><br><span class="line">    <span class="comment">// if prod, add externals</span></span><br><span class="line">    externals: isProd ? assetsCDN.externals : &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  chainWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if prod is on</span></span><br><span class="line">    <span class="comment">// assets require on cdn</span></span><br><span class="line">    <span class="keyword">if</span> (isProd) &#123;</span><br><span class="line">      config.plugin(<span class="string">'html'</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">        args[<span class="number">0</span>].cdn = assetsCDN</span><br><span class="line">        <span class="keyword">return</span> args</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = vueConfig</span><br></pre></td></tr></table></figure>
+<p>在<code>index.html</code>中加入CDN  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-cmn-Hans"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"icon"</span> <span class="attr">href</span>=<span class="string">"&lt;%= BASE_URL %&gt;logo.png"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xxxx<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入CSS的CDN --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">for</span> (<span class="attr">var</span> <span class="attr">i</span> <span class="attr">in</span> <span class="attr">htmlWebpackPlugin.options.cdn</span> &amp;&amp; <span class="attr">htmlWebpackPlugin.options.cdn.css</span>) &#123; %&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&lt;%= htmlWebpackPlugin.options.cdn.css[i] %&gt;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">strong</span>&gt;</span>请使用主流浏览器访问（谷歌浏览器、QQ浏览器等）. Please enable it to continue.<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入JS的CDN --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">for</span> (<span class="attr">var</span> <span class="attr">i</span> <span class="attr">in</span> <span class="attr">htmlWebpackPlugin.options.cdn</span> &amp;&amp; <span class="attr">htmlWebpackPlugin.options.cdn.js</span>) &#123; %&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"&lt;%= htmlWebpackPlugin.options.cdn.js[i] %&gt;"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="7、视觉优化"><a href="#7、视觉优化" class="headerlink" title="7、视觉优化"></a>7、视觉优化</h3><blockquote>
+<p>鲁迅说过：优化做好，动画来凑  </p>
+</blockquote>
+<p>在性能上做了基本的工作之后，还可以对用户体验加以增加。<br>比如：加载动画、骨架屏（<a href="https://www.antdv.com/components/skeleton-cn/" target="_blank" rel="noopener">AntDesign骨架屏</a>）、占位符等……</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> Vue </tag>
+            
+            <tag> Vue-cli </tag>
+            
+            <tag> Ant-Design </tag>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[剁手Nintendo Switch（9月新版） 🎮]]></title>
+      <url>/2019100701/</url>
+      <content type="html"><![CDATA[<p>等待9月份新版Switch（续航，工艺等）的到来，等不了腾讯国行发售，最终还是剁手了日版Switch。  </p>
+<blockquote>
+<p>PS（后续补的话）：现在国行发售了！幸好没买国行！</p>
+</blockquote>
+<p><img style=" transform: rotate(0deg);" src="/img/random/2019100701/zhitu-des/1.jpg"><br>  </p>
+<blockquote>
+<p>第一台Switch留作纪念  </p>
+</blockquote>
+<p><img style=" transform: rotate(0deg);" src="/img/random/2019100701/zhitu-des/2.jpg"><br>  </p>
+<blockquote>
+<p>Nintendo Switch介绍</p>
+</blockquote>
+<iframe height="600px" frameborder="0" src="https://v.qq.com/txp/iframe/player.html?vid=l09036i3zty" allowfullscreen="true"></iframe>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[TASCAM DR-05X]]></title>
+      <url>/2019090801/</url>
+      <content type="html"><![CDATA[<p>放购物车里太久，终于给家里添置了个麦克风（录音笔），TASCAM只有X系列（2019年1月新出）才可以实时推流（拿来当麦克风哈哈），支持连接Windows/Mac/IOS推流。  </p>
+<blockquote>
+<p>官方介绍：<a href="https://tascam.cn/cn/product/dr-05x/feature" target="_blank" rel="noopener">TASCAM DR-05X</a>  </p>
+<p>刚拿到快递  </p>
+</blockquote>
+<p><img style=" transform: rotate(0deg);" src="/img/random/2019090801/zhitu-des/1.jpg"><br>  </p>
+<p><img style=" transform: rotate(90deg);" src="/img/random/2019090801/zhitu-des/2.jpg"><br>  </p>
+<p><img style=" transform: rotate(90deg);" src="/img/random/2019090801/zhitu-des/3.jpg"><br></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+            <tag> TASCAM </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[VSCode赛博朋克风主题🎈]]></title>
+      <url>/2019050401/</url>
+      <content type="html"><![CDATA[<p>发现一个有点赛博朋克风的Visual Studio Code主题（还能发光🎇）</p>
+<blockquote>
+<p>主题地址：<a href="https://marketplace.visualstudio.com/items?itemName=RobbOwen.synthwave-vscode" target="_blank" rel="noopener">SynthWave ‘84</a>  </p>
+</blockquote>
+<h2 id="👀-预览"><a href="#👀-预览" class="headerlink" title="👀 预览"></a>👀 预览</h2><p><img src="/img/random/2019050401/01.png" alt="VSCode"></p>
+<h2 id="🙋‍-如何安装"><a href="#🙋‍-如何安装" class="headerlink" title="🙋‍ 如何安装"></a>🙋‍ 如何安装</h2><p>1、安装扩展 <code>Custom CSS and JS Loader</code><br>2、安装扩展（主题） <code>SynthWave &#39;84</code>  </p>
+<blockquote>
+<p>这一步主题就算安装好了，我们可以进入设置切换主题 <code>SynthWave &#39;84</code>（变得gay里gay气）<br><img src="/img/random/2019050401/02.png" alt="切换主题">  </p>
+</blockquote>
+<h2 id="🎇-字体发光（灵魂所在）"><a href="#🎇-字体发光（灵魂所在）" class="headerlink" title="🎇 字体发光（灵魂所在）"></a>🎇 字体发光（灵魂所在）</h2><blockquote>
+<p>按作者所说，VSCode本身不支持这种效果，所以这种效果还是实验性质的。<br>安装后VSCode也会弹出已损坏的消息，但不影响使用。<br>每次VSCode更新后都需要重新安装。</p>
+</blockquote>
+<p>1、先在<code>.vscode</code>下找到<code>synthwave84.css</code>的文件位置（复制位置，保留备用）</p>
+<blockquote>
+<p>我的位置是在：C:/Users/1（用户名）/.vscode/extensions/robbowen.synthwave-vscode-0.0.7/synthwave84.css  </p>
+</blockquote>
+<p>2、在VSCode设置中打开<code>setting.json</code>进行编辑<br><img src="/img/random/2019050401/03.png" alt="设置">&nbsp;&nbsp;<img src="/img/random/2019050401/04.png" alt="setting.json">   </p>
+<p>3、按照作者所说的方法填入<code>setting.json</code>（填入复制的位置，需要写file://）</p>
+<p><img src="/img/random/2019050401/05.png" alt="位置">  </p>
+<blockquote>
+<p>Mac:  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;vscode_custom_css.imports&quot;: [</span><br><span class="line">        &quot;file:///Users/&#123;your username&#125;/synthwave84.css&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Windows:  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;vscode_custom_css.imports&quot;: [</span><br><span class="line">        &quot;file:///C:/Users/&#123;your username&#125;/synthwave84.css&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、启用自定义CSS（开启发光~）  </p>
+<blockquote>
+<p>打开命令 “ <code>Ctrl + Shift + P</code> “ 或者 “ <code>Shift + ⌘ + P</code> “ 选择 “ <code>Enable Custom CSS and JS</code> “ ，提示重启后将可以看见效果。<br>注意：每次更新VSCode时，都需要重复这个步骤来重新启用自定义CSS和JS。<br><img src="/img/random/2019050401/06.png" alt="启用">   </p>
+</blockquote>
+<p>5、禁用发光效果  </p>
+<blockquote>
+<p>打开命令 “ <code>Ctrl + Shift + P</code> “ 或者 “ <code>Shift + ⌘ + P</code> “ 选择 “ <code>Disable Custom CSS and JS</code> “ ，提示重启后禁用。   </p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> VSCode </tag>
+            
+            <tag> 主题 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue-cli3使用Mock模拟数据]]></title>
+      <url>/2019050101/</url>
+      <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;项目在前后端分离开发模式中，传统都是后端给前端提供一个接口，再由前端进行请求渲染测试。往往前后端开发进度不一致，前端只能使用本地进行数据渲染的测试。  </p>
+<blockquote>
+<p>这里我们用到的是自带的Mock进行模拟数据，这样就不用再依靠后端测试啦🛀<br>基础环境：Node.js(6.0+) + Vue-cli3 + Axios</p>
+</blockquote>
+<h2 id="零、Vue-cli3配置"><a href="#零、Vue-cli3配置" class="headerlink" title="零、Vue-cli3配置"></a>零、Vue-cli3配置</h2><p>在使用Vue-cli构建项目的时候可以在vue.config.js中配置devServer开启服务，用路由模拟接口进行测试。  </p>
+<blockquote>
+<p> 注意：Vue-cli3和Vue-cli2配置方法不同，这里主要演示Vue-cli3  </p>
+</blockquote>
+<p>Vue-cli3目录结构如下（mock手动创建用于储存模拟数据）：<br><img src="/img/random/2019050101/01.png" alt="Vue">  </p>
+<p>这里我们需要手动创建并配置<code>vue.config.js</code>文件，完整配置可在<a href="https://cli.vuejs.org/zh/config/#vue-config-js" target="_blank" rel="noopener">官网查看</a>，在这主要配置devServer  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//mock 模拟数据</span><br><span class="line">const LoginData = require(&apos;./mock/Login.json&apos;);</span><br><span class="line"></span><br><span class="line">module.exports=&#123;</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    port:9099,</span><br><span class="line">    before: app =&gt; &#123;</span><br><span class="line">      //登录获取token</span><br><span class="line">      app.post(&apos;/oauth/token&apos;,(req,res,next)=&gt;&#123;</span><br><span class="line">          res.json(LoginData.Token);</span><br><span class="line">      &#125;)</span><br><span class="line">      //登录获取用户名再次授权</span><br><span class="line">      app.post(&apos;/users/CurrentUser&apos;,(req,res,next)=&gt;&#123;</span><br><span class="line">          res.json(LoginData.CurrentUser);</span><br><span class="line">      &#125;)</span><br><span class="line">      //退出</span><br><span class="line">      app.get(&apos;/oauth/logout&apos;,(req,res,next)=&gt;&#123;</span><br><span class="line">          res.json(LoginData.LogOut);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置完成后就可以开始模拟测试了<br>注意：每次更改了vue.config.js都需要重新启动项目<br>npm run serve  </p>
+</blockquote>
+<h2 id="一、运行效果"><a href="#一、运行效果" class="headerlink" title="一、运行效果"></a>一、运行效果</h2><p><img src="/img/random/2019050101/06.gif" alt="Vue">    </p>
+<h2 id="二、进行实践"><a href="#二、进行实践" class="headerlink" title="二、进行实践"></a>二、进行实践</h2><blockquote>
+<p>模拟数据json<br>./mock/vue.config.js  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;Token&quot;:&#123;</span><br><span class="line">        &quot;code&quot;: &quot;200&quot;</span><br><span class="line">        ,&quot;refresh_token&quot;: &quot;123&quot;</span><br><span class="line">        ,&quot;access_token&quot;: &quot;123&quot;</span><br><span class="line">        ,&quot;username&quot;: &quot;AmosHuKe&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;CurrentUser&quot;:&#123;</span><br><span class="line">        &quot;code&quot;: &quot;200&quot;</span><br><span class="line">        ,&quot;data&quot;: &#123;</span><br><span class="line">            &quot;userAccount&quot;: &quot;AmosHuKe&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;LogOut&quot;:&#123;</span><br><span class="line">        &quot;code&quot;: &quot;200&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>axios请求地址基本配置  </p>
+</blockquote>
+<p><img src="/img/random/2019050101/02.png" alt="Vue">    </p>
+<blockquote>
+<p>使用模拟的接口API配置使用  </p>
+</blockquote>
+<p><img src="/img/random/2019050101/03.png" alt="Vue">    </p>
+<blockquote>
+<p>登录调用接口  </p>
+</blockquote>
+<p><img src="/img/random/2019050101/04.png" alt="Vue">    </p>
+<blockquote>
+<p>获得了模拟的数据  </p>
+</blockquote>
+<p><img src="/img/random/2019050101/05.png" alt="Vue">  </p>
+<h3 id="接口传参"><a href="#接口传参" class="headerlink" title="接口传参"></a>接口传参</h3><blockquote>
+<p>配置 <code>body-parser</code> 接收参数进行模拟增删改查<br>接口使用 <code>req.body</code> 进行接收参数</p>
+</blockquote>
+<pre><code>let bodyParser = require(&apos;body-parser&apos;)
+app.use(bodyParser.urlencoded({ extended: false }))
+</code></pre><p><img src="/img/random/2019050101/08.png" alt="Vue">  </p>
+<p><img src="/img/random/2019050101/07.png" alt="Vue">  </p>
+<h2 id="三、问题"><a href="#三、问题" class="headerlink" title="三、问题"></a>三、问题</h2><blockquote>
+<p>1、注意在本地模拟请求数据的时候axios的默认请求地址<code>127.0.0.1:xxxx</code>和<code>localhost:xxxx</code>，项目访问地址是有区别的。如果axios请求是<code>127.0.0.1:xxxx</code>，那么项目也需要用<code>127.0.0.1:xxxx</code>访问地址才能请求到模拟数据，用<code>localhost</code>也是同样的道理。  </p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> Vue </tag>
+            
+            <tag> Mock </tag>
+            
+            <tag> Vue-cli </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[一只电脑 🖥]]></title>
+      <url>/2019011901/</url>
+      <content type="html"><![CDATA[<p>欢迎这位台式电脑加入新家！<br></p>
+<blockquote>
+<p>显卡有点小重还是横着放的，怕时间久了弯掉，搞了个盒子垫着（苦笑）<br>想做光污染，果然不能图便宜买灯，廉价感满满（流下了贫穷的泪水）</p>
+</blockquote>
+<p><img src="/img/random/2019011901/zhitu-des/1.jpg" alt="computer"> <br></p>
+<blockquote>
+<p>电脑本尊啦</p>
+</blockquote>
+<p><img src="/img/random/2019011901/zhitu-des/2.jpg" alt="computer"></p>
+<blockquote>
+<h5 id="简单说下配置："><a href="#简单说下配置：" class="headerlink" title="简单说下配置："></a>简单说下配置：</h5><ul>
+<li>CPU：Intel I7 8700</li>
+<li>显卡：微星GTX1060 5G （暂时用着，后期换卡）</li>
+<li>主板：华硕B360 PRO GAMING (WIFI)</li>
+</ul>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[软件著作权证书]]></title>
+      <url>/2018113001/</url>
+      <content type="html"><![CDATA[<p>终于拿到了！<br></p>
+<blockquote>
+<p>涉及到一些事情的时候，还是要注重版权问题，用来保护自己<br>计算机软件著作权登记证 花了也就两个月左右的时间就拿下来了<br>最好找稍微稳妥一点的律师事务所去办，比较放心一些</p>
+</blockquote>
+<p><img src="/img/random/20181130/zhitu-des/1.jpg" alt="computer"> <br></p>
+<blockquote>
+<p>证书（就一张纸飞飞）</p>
+</blockquote>
+<p><img src="/img/random/20181130/zhitu-des/2.jpg" alt="computer"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 著作权 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[宜家MALM马尔姆+ALEX阿来斯]]></title>
+      <url>/2018111801/</url>
+      <content type="html"><![CDATA[<p>家里没有办公桌，就打算去宜家看看有没有合适的~<br></p>
+<blockquote>
+<p>本来打算买U型办公桌，奈何不适合房间（放弃！）<br>在宜家官网看见有个可以伸缩的L型桌子（MALM马尔姆+ALEX阿来斯），不用的时候正好可以收进去（合意的代替品）</p>
+</blockquote>
+<p><img style=" transform: rotate(90deg);" src="/img/random/20181118/zhitu-des/1.jpg"><br><br><img style=" transform: rotate(90deg);" src="/img/random/20181118/zhitu-des/2.jpg"><br></p>
+<blockquote>
+<p>买后第三天到啦，一个人去搬回家</p>
+</blockquote>
+<p><img style=" transform: rotate(90deg);" src="/img/random/20181118/zhitu-des/3.jpg"><br></p>
+<blockquote>
+<p>一下午疯狂组装（腰疼）</p>
+</blockquote>
+<p><img src="/img/random/20181118/zhitu-des/4.jpg"><br><br><img src="/img/random/20181118/zhitu-des/5.jpg"><br></p>
+<blockquote>
+<p>组装了一天（累瘫）</p>
+</blockquote>
+<p><img style=" transform: rotate(90deg);" src="/img/random/20181118/zhitu-des/6.jpg"><br>  </p>
+<blockquote>
+<p>– – 晚安</p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微软商用Surface巡展]]></title>
+      <url>/2018101601/</url>
+      <content type="html"><![CDATA[<h3 id="微软商用Surface巡展"><a href="#微软商用Surface巡展" class="headerlink" title="微软商用Surface巡展"></a>微软商用Surface巡展</h3><blockquote>
+<p>会议时间：2018-10-16 13:25-17:00<br>会议地点：重庆两江假日酒店  </p>
+</blockquote>
+<h4 id="酒店门口一角"><a href="#酒店门口一角" class="headerlink" title="酒店门口一角"></a>酒店门口一角</h4><p><img style=" transform: rotate(90deg);" src="/img/random/20181016/zhitu-des/1.jpg">  </p>
+<h4 id="会场"><a href="#会场" class="headerlink" title="会场"></a>会场</h4><p><img style=" transform: rotate(90deg);" src="/img/random/20181016/zhitu-des/2.jpg">  </p>
+<p><img style=" transform: rotate(90deg);" src="/img/random/20181016/zhitu-des/3.jpg">  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 微软 </tag>
+            
+            <tag> 会议 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[2018新年快乐！！！]]></title>
+      <url>/2018021601/</url>
+      <content type="html"><![CDATA[<h3 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐!!!!!!"></a>新年快乐!!!!!!</h3><p><img src="/img/random/20180216/zhitu-des/1.jpg" alt="2018-02-16"></p>
+<p><img src="/img/random/20180216/zhitu-des/2.jpg" alt="2018-02-16"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 新年 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[PHP Snoopy类-抓取采集]]></title>
+      <url>/php_snoopy/</url>
+      <content type="html"><![CDATA[<p>Snoopy其实就是一个PHP类-抓取采集类，它能完成获取网页内容和发送表单的任务。<br><code>要求：PHP4以上</code>本身是php一个类，无需扩支持，不支持curl的服务器可以使用。</p>
+<blockquote>
+<p>官网（下载）:<a href="http://snoopy.sourceforge.net/" target="_blank" rel="noopener">http://snoopy.sourceforge.net/</a></p>
+</blockquote>
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><blockquote>
+<p>抓取网页的内容（fetch）<br>抓取网页的文本内容 (去除HTML标签) （fetchtext）<br>抓取网页的链接，表单 （fetchlinks fetchform）<br>支持代理主机<br>支持基本的用户名/密码验证<br>支持设置 user_agent, referer(来路), cookies 和 header content(头文件)<br>支持浏览器重定向，并能控制重定向深度<br>能把网页中的链接扩展成高质量的url(默认)<br>提交数据并且获取返回值<br>支持跟踪HTML框架<br>支持重定向的时候传递cookies</p>
+</blockquote>
+<h3 id="接口或方法"><a href="#接口或方法" class="headerlink" title="接口或方法"></a>接口或方法</h3><blockquote>
+<p><code>fetch($URI)</code><br>抓取网页的内容，$URI 是要抓取网页的网址，抓取过来结果存储到 $this-&gt;results。如果你抓取的是框架，这每个 frame 都会被抓取，结果会保存到一个数组中。</p>
+<p><code>fetchtext($URI)</code><br>和 fetch() 是差不多的，只是它的结果是文本，除去 HTML 标签和其他无关信息。</p>
+<p><code>fetchform($URI)</code><br>只返回抓取的网页上 form 元素。</p>
+<p><code>fetchlinks($URI)</code><br>只返回抓取的网页上的链接，默认返回的链接都是含有域名的链接。</p>
+<p><code>submit($URI,$formvars)</code><br>提交一个表单到指定的 $URI。$formvars 是要传递的 form 变量数组。</p>
+<p><code>submittext($URI,$formvars)</code><br>这个方法和 submit() 基本一致，但是它返回的是文本，除去了 html 标签和其他无关数据。</p>
+<p>submitlinks($URI)<br>返回的是链接。</p>
+</blockquote>
+<h3 id="Snoopy采集类属性（Snoopy-class-php）"><a href="#Snoopy采集类属性（Snoopy-class-php）" class="headerlink" title="Snoopy采集类属性（Snoopy.class.php）"></a>Snoopy采集类属性（Snoopy.class.php）</h3><blockquote>
+<p>$host 连接的主机<br>$port 连接的端口<br>$proxy_host 使用的代理主机，如果有的话<br>$proxy_port 使用的代理主机端口，如果有的话<br>$agent 用户代理伪装 (Snoopy v0.1)<br>$referer 来路信息，如果有的话<br>$cookies cookies 如果有的话<br>$rawheaders 其他的头信息, 如果有的话<br>$maxredirs 最大重定向次数， 0=不允许 (5)<br>$offsiteok whether or not to allow redirects off-site. (true)<br>$expandlinks 是否将链接都补全为完整地址 (true)<br>$user 认证用户名, 如果有的话<br>$pass 认证用户名, 如果有的话<br>$accept http 接受类型 (image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, <em>/</em>)<br>$error 哪里报错, 如果有的话<br>$response_code 从服务器返回的响应代码<br>$headers 从服务器返回的头信息<br>$maxlength 最长返回数据长度<br>$read_timeout 读取操作超时 (requires PHP 4 Beta 4+) 设置为0为没有超时<br>$timed_out 如果一次读取操作超时了，本属性返回 true (requires PHP 4 Beta 4+)<br>$maxframes 允许追踪的框架最大数量<br>$status 抓取的http的状态<br>$temp_dir 网页服务器能够写入的临时文件目录 (/tmp)<br>$curl_path cURL binary 的目录, 如果没有cURL binary就设置为 false</p>
+</blockquote>
+<h3 id="示例：模拟提交表单返回表的数据"><a href="#示例：模拟提交表单返回表的数据" class="headerlink" title="示例：模拟提交表单返回表的数据"></a>示例：模拟提交表单返回表的数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">		include &quot;snoopy.class.php&quot;;</span><br><span class="line">		$snoopy = new Snoopy;</span><br><span class="line">		//表单提交模拟  </span><br><span class="line">		$formvars[&quot;txtStudentNo&quot;] = &quot;学号&quot;;   </span><br><span class="line">		$formvars[&quot;txtStudentName&quot;] = &quot;姓名&quot;;</span><br><span class="line">		$formvars[&quot;__EVENTTARGET&quot;] = &quot;&quot;;</span><br><span class="line">		$formvars[&quot;__EVENTARGUMENT&quot;] = &quot;&quot;;</span><br><span class="line">		$formvars[&quot;__VIEWSTATE&quot;] = &quot;/wEPDwULLTEyODE2MTMzNjUPZBYCAgMPZBYGAhYPEGRkFgBkAhgPPCsAEQBkAhoPPCsAEQEBEBYAFgAWAGQYAgUHZ3ZTY29yZQ9nZAUIZ3ZDcmVkaXQPZ2Q0vZ9kcrUU+TZE61Bo6Cj1/MAPlBQAKHwTNWddmQ6OlA==&quot;;</span><br><span class="line">		$formvars[&quot;__EVENTVALIDATION&quot;] = &quot;/wEWBgLlvo2iCALOj4fxBwL9p/noCwLdkpmPAQKLk6mvAgKXt+TzAXM3720UDhWcPUtOLX8Il0quPlehyyQNYIBW67NbdoWi&quot;;</span><br><span class="line">		$formvars[&quot;btnOK&quot;] = &quot;确定&quot;;</span><br><span class="line">		//抓取地址</span><br><span class="line">		$action = &quot;学院成绩查询网址&quot;;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		$snoopy-&gt;cookies[&quot;PHPSESSID&quot;] = &apos;fc106b1918bd522cc863f36890e6fff7&apos;; //伪装sessionid   </span><br><span class="line">		$snoopy-&gt;agent = &quot;(compatible; MSIE 4.01; MSN 2.5; AOL 4.0; Windows 98)&quot;; //伪装浏览器   </span><br><span class="line">		$snoopy-&gt;referer = &quot;学院成绩查询网址&quot;; //伪装来源页地址 http_referer   </span><br><span class="line">		$snoopy-&gt;rawheaders[&quot;Pragma&quot;] = &quot;no-cache&quot;; //cache 的http头信息   </span><br><span class="line">		$snoopy-&gt;rawheaders[&quot;X_FORWARDED_FOR&quot;] = &quot;127.0.0.1&quot;; //伪装ip   </span><br><span class="line">		$snoopy-&gt;submit($action,$formvars);   </span><br><span class="line">		$data=$snoopy-&gt;results;   </span><br><span class="line">		//单独取出数据</span><br><span class="line">		preg_match_all(&apos;#&lt;td&gt;(.+?)&lt;/td&gt;#&apos;,$data,$m);</span><br><span class="line">		 // print_r($m);//打印出所有</span><br><span class="line">	?&gt;</span><br><span class="line">	&lt;?</span><br><span class="line">	if(isset($m[0][1]))</span><br><span class="line">	&#123;</span><br><span class="line">	?&gt;</span><br><span class="line">	&lt;table width=&quot;50%&quot; border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;</span><br><span class="line">		&lt;?</span><br><span class="line">		for($i=0;$i&lt;32;$i++)</span><br><span class="line">		&#123;</span><br><span class="line">		?&gt;</span><br><span class="line">		&lt;tr&gt;</span><br><span class="line">			&lt;?=$m[0][13+12*$i]?&gt;</span><br><span class="line">			&lt;?=$m[0][16+12*$i]?&gt;</span><br><span class="line">			&lt;?=$m[0][17+12*$i]?&gt;</span><br><span class="line">		&lt;/tr&gt;</span><br><span class="line">		&lt;?</span><br><span class="line">		&#125;</span><br><span class="line">		?&gt;</span><br><span class="line">	&lt;/table&gt;</span><br><span class="line">	&lt;?</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">		echo &quot;该成绩查询只适用本校学生&quot;;</span><br><span class="line">	?&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Gorogoa通关]]></title>
+      <url>/Gorogoa%20TG/</url>
+      <content type="html"><![CDATA[<p>《Gorogoa》可以说是一件艺术品了，作者简直是奇才-超大的脑洞，超级好评也不愧对于作者这五年来的心血，自己很久很久没有接触解密类游戏，直到遇见这款游戏，游戏流程不算长（一个多小时就能完成），我游玩了92分钟才通关，可能是我脑洞不够哈哈。<code>！最后有全成就方法！</code></p>
+<h3 id="宣传视频（游戏实际画面）"><a href="#宣传视频（游戏实际画面）" class="headerlink" title="宣传视频（游戏实际画面）"></a>宣传视频（游戏实际画面）</h3><video width="100%" height="300" poster="/img/random/Gorogoa%20TG/zhitu-des/2.png" controls><br>  <source src="https://media.st.dl.pinyuncloud.com/steam/apps/256678594/movie480.webm?t=1485581502" type="video/mp4"><br></video>
+
+<h3 id="截图纪念"><a href="#截图纪念" class="headerlink" title="截图纪念"></a>截图纪念</h3><p><img src="/img/random/Gorogoa%20TG/zhitu-des/1.png" alt></p>
+<h3 id="全成就方法"><a href="#全成就方法" class="headerlink" title="全成就方法"></a>全成就方法</h3><blockquote>
+<p>我并没有拿全成就，这里列出一下。<br>常规成就部分：</p>
+<p>“第X个果实”为主线剧情，拿到该章节的果实解锁;</p>
+<p>“全情投入”为主线剧情。完成第六章解锁;</p>
+<p>隐藏成就：</p>
+<p>“第一次尝试”</p>
+<p>解锁方式，在第三章中，第一次通过移动图片，就砸开困住飞蛾的玻璃杯。</p>
+<p>“正确的错误”</p>
+<p>就在上个隐藏成就后面，钟楼的部分，把用铁制物品&amp;火，把钟楼时间调到6：&gt; 30，缩小钟楼部分图片，可以在右下看到一只马，解锁成就。</p>
+<p>“唯快不破”：五百个操作以内完成游戏。</p>
+<p>“怎么可能?”：30分钟内完成游戏。</p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+            <tag> 解密 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[后台iframe适应网页及跳转]]></title>
+      <url>/Layui%20iframe/</url>
+      <content type="html"><![CDATA[<p>做后台的时候接触到iframe，写了一个非常简单的跳转方法，Mark方便以后用~</p>
+<p>(≖ ‿ ≖)✧</p>
+<h3 id="一、iframe适应网页"><a href="#一、iframe适应网页" class="headerlink" title="一、iframe适应网页"></a>一、iframe适应网页</h3><h6 id="1-iframe代码"><a href="#1-iframe代码" class="headerlink" title="1.iframe代码"></a>1.iframe代码</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;进入后台显示的网页&quot; frameborder=&quot;0&quot;  id=&quot;iframeid_admin&quot; onload=&quot;Javascript:SetiframeHeight()&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+<h6 id="2-JS代码-获取当前网页高度适应"><a href="#2-JS代码-获取当前网页高度适应" class="headerlink" title="2.JS代码 获取当前网页高度适应"></a>2.JS代码 获取当前网页高度适应</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function SetiframeHeight()&#123;</span><br><span class="line">  var iframeid=document.getElementById(&quot;iframeid_admin&quot;); //iframe id</span><br><span class="line">  if (document.getElementById)&#123;</span><br><span class="line">   if (iframeid &amp;&amp; !window.opera)&#123;</span><br><span class="line">    if (iframeid.contentDocument &amp;&amp; iframeid.contentDocument.body.offsetHeight)&#123;</span><br><span class="line">     iframeid.height = iframeid.contentDocument.body.offsetHeight+100;</span><br><span class="line">    &#125;else if(iframeid.Document &amp;&amp; iframeid.Document.body.scrollHeight)&#123;</span><br><span class="line">     iframeid.height = iframeid.Document.body.scrollHeight+100;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>ps:适应了之后，假如跳转的网页高度小于后台高度，底部可能会留白，但是不影响使用~</p>
+<hr>
+<h3 id="二、iframe跳转"><a href="#二、iframe跳转" class="headerlink" title="二、iframe跳转"></a>二、iframe跳转</h3><h6 id="1-思路"><a href="#1-思路" class="headerlink" title="1.思路"></a>1.思路</h6><blockquote>
+<p>点击获取自定义属性的值（如：data-url中放网页地址）<br>把获取到的地址放入iframe的src<br>实现跳转（超简单）</p>
+</blockquote>
+<h6 id="2-链接代码"><a href="#2-链接代码" class="headerlink" title="2.链接代码"></a>2.链接代码</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a data-url=&quot;/copy.php&quot; onclick=&quot;javascript:targetPage(this);&quot; href=&quot;javascript:;&quot;&gt;关于&lt;/a&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+<h6 id="3-JS代码获取id跳转"><a href="#3-JS代码获取id跳转" class="headerlink" title="3.JS代码获取id跳转"></a>3.JS代码获取id跳转</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function targetPage(e)&#123;</span><br><span class="line">  var url=$(e).attr(&quot;data-url&quot;); //获取URL</span><br><span class="line">  $(&apos;#iframeid_admin&apos;).attr(&apos;src&apos;,url); //赋值 跳走</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> Layui </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Steam快速升级以及展柜]]></title>
+      <url>/Steam%20Up%20and%20Showcase/</url>
+      <content type="html"><![CDATA[<p> Steam怎么快速升级</p>
+<p>首先Steam的等级是10级前每100经验升一级（每升10级就要多100经验）20级200经验，30级300经验······每升一级能多5个好友位。</p>
+<h4 id="1-做社区任务：最高500经验（就算新手任务吧）"><a href="#1-做社区任务：最高500经验（就算新手任务吧）" class="headerlink" title="1. 做社区任务：最高500经验（就算新手任务吧）"></a>1. 做社区任务：最高500经验（就算新手任务吧）</h4><p>花一点时间就能完成（完成27项就能获得全部经验），基础的条件是一款游戏，一个好友（活跃一点的），中国玩家的话只有一个任务比较难完成，就是&lt;发布一段视频&gt;这个需要YouTube（能翻墙那就无所谓咯），这个任务不做也没事，一共28项任务，完成27项经验就能拿完，贼棒棒。</p>
+<h4 id="2-宝珠制作者：100经验（最简单的任务）"><a href="#2-宝珠制作者：100经验（最简单的任务）" class="headerlink" title="2. 宝珠制作者：100经验（最简单的任务）"></a>2. 宝珠制作者：100经验（最简单的任务）</h4><p>顺序：鼠标点击自己名字-点击库存-点击自己不重要的卡片-点击合成宝珠-任务完成~100经验到手。</p>
+<h4 id="3-合成徽章：合成一次-100，同一游戏徽章最高合成五次（推荐）"><a href="#3-合成徽章：合成一次-100，同一游戏徽章最高合成五次（推荐）" class="headerlink" title="3. 合成徽章：合成一次+100，同一游戏徽章最高合成五次（推荐）"></a>3. 合成徽章：合成一次+100，同一游戏徽章最高合成五次（推荐）</h4><p>这个合成徽章，也是社区任务里面的一个任务，查看顺序：鼠标点击自己名字-点击徽章，然后就会出现你买的游戏和一些免费游戏以及Steam活动的徽章，集齐同类的徽章就能合成，合成一次100经验（每个勋章最多5次），这也是最推荐的得到经验的方法，因为不管多少钱都是100经验，我们就可以专挑便宜的卡片买（不建议徽章丑就直接买）,<a href="http://www.steamcardexchange.net/index.php?badgeprices" target="_blank" rel="noopener">Steam Card Exchange</a>用这个网站先把价格点到最低的（一般2角一个卡牌），然后点击游戏进去，挨个把卡牌买完，然后进入自己的卡牌库（顺序：鼠标点击自己名字-点击库存）点击刚才买的卡牌，再点合成徽章，就这样循环，不想买卡牌的，也可以找好友交换。<br>    按1元算1-10级：10元；10-20级：20元······（10级就可以获得一个展柜，下面我会说的）合成徽章也可以得到一些小表情呀，一些壁纸呀，一些折扣游戏（一般都不是特别好玩）~</p>
+<h4 id="4-买游戏：根据游戏数，徽章经验不同大概是：5，-10，-15，-20，-50，-100个游戏会有徽章"><a href="#4-买游戏：根据游戏数，徽章经验不同大概是：5，-10，-15，-20，-50，-100个游戏会有徽章" class="headerlink" title="4. 买游戏：根据游戏数，徽章经验不同大概是：5， 10， 15， 20， 50， 100个游戏会有徽章"></a>4. 买游戏：根据游戏数，徽章经验不同大概是：5， 10， 15， 20， 50， 100个游戏会有徽章</h4><h4 id="5-账号拥有年限：最低一年会有徽章"><a href="#5-账号拥有年限：最低一年会有徽章" class="headerlink" title="5. 账号拥有年限：最低一年会有徽章"></a>5. 账号拥有年限：最低一年会有徽章</h4><h4 id="6-其它活动…"><a href="#6-其它活动…" class="headerlink" title="6. 其它活动…."></a>6. 其它活动….</h4><h2 id="我的升级方式："><a href="#我的升级方式：" class="headerlink" title="我的升级方式："></a>我的升级方式：</h2><ol>
+<li><p>完成宝珠制作者（100）</p>
+</li>
+<li><p>完成社区任务（500）</p>
+</li>
+<li><p>合成徽章（花费5元）</p>
+</li>
+</ol>
+<p>速到10级，后面的等级大部分都是合成徽章~  </p>
+<hr>
+<h2 id="下面是我现在的成就展柜"><a href="#下面是我现在的成就展柜" class="headerlink" title="下面是我现在的成就展柜"></a>下面是我现在的成就展柜</h2><p>Steam10级一个展柜，每10级多一个展柜，我们就可以获得一些有趣的成就拿来展示</p>
+<p><img src="/img/random/Steam%20Up%20and%20Showcase/zhitu-des/1.png" alt="成就展柜"></p>
+<h2 id="怎么得到这些成就"><a href="#怎么得到这些成就" class="headerlink" title="怎么得到这些成就"></a>怎么得到这些成就</h2><p>Steam有一个游戏叫《Zup!》</p>
+<p>这个系列纯粹的就是买成就送的益智小游戏（都挺简单的）23333</p>
+<p>《Zup!》有趣成就：貌似没有</p>
+<p>《Zup!2》有趣成就：G胖还我血汗钱（还有个G胖的脸），喜加一······</p>
+<p>《Zup!3》有趣成就：再买剁手······</p>
+<p>《Zup!4》有趣成就：膜法师，图样图森破，兹瓷，大新闻······</p>
+<p>《Zup!Zero》有趣成就：貌似也没有</p>
+<p>《Zup!5》有趣成就：马化腾必死，风水火土······</p>
+<p>《Zup！》系列的成就都高达5800个左右</p>
+<p>最好自己看好了再买~~</p>
+<p>假如感觉说的不详细或者不懂的地方可以问问我~睡觉~晚安</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Layui后台侧边菜单收缩]]></title>
+      <url>/Layui_admin/</url>
+      <content type="html"><![CDATA[<p>Layui后台侧边菜单收缩方法，目前Layui后台布局不自带收缩功能，实现也很简单。</p>
+<blockquote>
+<p>处理:dh-left 操作 dh-left的left</p>
+</blockquote>
+<ol>
+<li>收缩左侧导航</li>
+<li>主页面一直保持不动</li>
+</ol>
+<h3 id="导航代码"><a href="#导航代码" class="headerlink" title="导航代码"></a>导航代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;layui-layout layui-layout-admin&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;layui-header&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;layui-logo&quot;&gt;layui 后台布局&lt;/div&gt; &lt;!-- 操作layui-logo --&gt;</span><br><span class="line">    &lt;!-- 头部区域（可配合layui已有的水平导航） --&gt;</span><br><span class="line">    &lt;ul class=&quot;layui-nav layui-layout-left&quot;&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;控制台&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;商品管理&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;用户&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;javascript:;&quot;&gt;其它系统&lt;/a&gt;</span><br><span class="line">        &lt;dl class=&quot;layui-nav-child&quot;&gt;</span><br><span class="line">          &lt;dd&gt;&lt;a href=&quot;&quot;&gt;邮件管理&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">          &lt;dd&gt;&lt;a href=&quot;&quot;&gt;消息管理&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">          &lt;dd&gt;&lt;a href=&quot;&quot;&gt;授权管理&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">        &lt;/dl&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;ul class=&quot;layui-nav layui-layout-right&quot;&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;javascript:;&quot;&gt;</span><br><span class="line">          Amos</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">        &lt;dl class=&quot;layui-nav-child&quot;&gt;</span><br><span class="line">          &lt;dd&gt;&lt;a href=&quot;&quot;&gt;基本资料&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">          &lt;dd&gt;&lt;a href=&quot;&quot;&gt;安全设置&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">        &lt;/dl&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;退了&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;div class=&quot;layui-side layui-bg-black dh-left&quot;&gt; &lt;!--操作dh-left--&gt;</span><br><span class="line">    &lt;div class=&quot;layui-side-scroll&quot;&gt;</span><br><span class="line">      &lt;!-- 左侧导航区域（可配合layui已有的垂直导航） --&gt;</span><br><span class="line">      &lt;ul class=&quot;layui-nav layui-nav-tree&quot;  lay-filter=&quot;test&quot;&gt;</span><br><span class="line">        &lt;li class=&quot;layui-nav-item layui-nav-itemed&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;&quot; href=&quot;javascript:;&quot;&gt;所有商品&lt;/a&gt;</span><br><span class="line">          &lt;dl class=&quot;layui-nav-child&quot;&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表一&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表二&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表三&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;&quot;&gt;超链接&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">          &lt;/dl&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;layui-nav-item&quot;&gt;</span><br><span class="line">          &lt;a href=&quot;javascript:;&quot;&gt;解决方案&lt;/a&gt;</span><br><span class="line">          &lt;dl class=&quot;layui-nav-child&quot;&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表一&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;javascript:;&quot;&gt;列表二&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">            &lt;dd&gt;&lt;a href=&quot;&quot;&gt;超链接&lt;/a&gt;&lt;/dd&gt;</span><br><span class="line">          &lt;/dl&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;云市场&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;layui-nav-item&quot;&gt;&lt;a href=&quot;&quot;&gt;发布商品&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;div class=&quot;layui-body main_admin&quot;&gt;&lt;!-- 固定main-admin --&gt;</span><br><span class="line">    &lt;!-- 内容主体区域 --&gt;</span><br><span class="line">    &lt;div style=&quot;padding: 15px;&quot;&gt;内容主体区域&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;layui-footer main_admin&quot;&gt;&lt;!-- 固定main-admin --&gt;</span><br><span class="line">    &lt;!-- 底部固定区域 --&gt;</span><br><span class="line">    © layui.com - 底部固定区域</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="JS动态收缩代码"><a href="#JS动态收缩代码" class="headerlink" title="JS动态收缩代码"></a>JS动态收缩代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;body&apos;).on(&apos;click&apos;, &apos;.layui-logo&apos;, function()&#123;</span><br><span class="line">    var a = $(&apos;.dynamic-navigation&apos;);</span><br><span class="line">    a &amp;&amp; (a.attr(&quot;tg&quot;) ? (a.animate(&#123;</span><br><span class="line">        left: 0,</span><br><span class="line">        opacity: &quot;show&quot;</span><br><span class="line">    &#125;, 300), a.removeAttr(&quot;tg&quot;)) : (a.animate(&#123;</span><br><span class="line">        left: -200,</span><br><span class="line">        opacity: &quot;show&quot;</span><br><span class="line">    &#125;, 200), a.attr(&quot;tg&quot;, &quot;1&quot;)))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="主页面固定不动"><a href="#主页面固定不动" class="headerlink" title="主页面固定不动"></a>主页面固定不动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = $(&apos;.main_admin&apos;);</span><br><span class="line">a &amp;&amp; (a.attr(&quot;tg&quot;) ? (a.animate(&#123;</span><br><span class="line">    left: 0,</span><br><span class="line">    opacity: &quot;show&quot;</span><br><span class="line">&#125;, 0), a.removeAttr(&quot;tg&quot;)) : (a.animate(&#123;</span><br><span class="line">    left: 0,</span><br><span class="line">    opacity: &quot;show&quot;</span><br><span class="line">&#125;, 0), a.attr(&quot;tg&quot;, &quot;1&quot;)))</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> Layui </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《FireWatch（看火人）》全成就通关]]></title>
+      <url>/FireWatch%20TG/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-24</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;16天前全成就通关的一款悬疑冒险类游戏《FireWatch（看火人）》，第一周目单纯为了体验游戏没有拿全成就，第二周目才匆匆拿到全成就。<br>&nbsp;&nbsp;&nbsp;&nbsp;没战斗，没解密，选择也不会像行尸走肉系列一样，不会对剧情造成什么影响，就是这样一款步行模拟器一样的悬疑冒险类游戏，让人安心的风景，剧情讲了特别多成人的世界，逃避现实的人也只有一个算不上阴谋的阴谋，谜团解开后没有了紧张，没有了先前的震撼。<br>&nbsp;&nbsp;&nbsp;&nbsp;选择逃避的人，最终还是要回归现实。</p>
+<blockquote>
+<p>“不清楚爱情<br>怎么会走到这种局面<br>从开始明明<br>我的认定从来没改变<br>这一刻你的沉默<br>洗掉所有画面<br>原来我们都只有一次的新鲜”</p>
+<p>A：爱上一个人需要多长时间？就像你问我相信一见钟情么？一天，只有一天，快速的只用了一天，持续的也不过一年，想想距离今天确实已经过了好些日子了，嗯，十年。人说“何必把怀念弄得比在一起的时间还长呢？”我也的的确确认真的剖析了下，可能怀旧是因为如今的生活不足以让你向前看，或者我就是那种喜欢胸大的肤浅男吧。不过当初你眼里的那个避世loser现在竟然也陶醉在了物质带来的愉悦里，这算“我们终将都会变成我们讨厌的样子”么？。</p>
+<p>B：关于爱情我们总是习以为常，然后用尽方法试探彼此的重要性，却总会抱怨深爱着却不能在一起，然后沉默的走出彼此的舞台，从此抹白，形同陌路，因为我们对于爱情的理解只有最初的激情，想方设法弥留，却从来都忍受不了最终步入的平淡。</p>
+</blockquote>
+<p><img src="/img/random/FireWatch%20TG/zhitu-des/1.png" alt="FireWatch（看火人）"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《行尸走肉2》全成就通关及章节片尾音乐]]></title>
+      <url>/The%20Walking%20Dead%20Season%20Two%20TG/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-23</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;第一季打完了感觉特别棒，所以昨天入手了第二季《行尸走肉2》8小时今天晚上全成就通关了，要拿到全成就直接打完就好了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这个系列是我玩过游戏中感触最深的了，对人心的拷问以及面对末日的真实感，游戏比第一季有很多进步的地方（操作，选择，音乐，环境），第一季走失的老友在第二季最困难的时候遇见了，当时真的是特别特别有感触（感动的瞬间），全程没有尿点剧情很流畅，不得不说特别的时刻对人的改变真的特别大，不管是Clementine（小女孩第二季主角）还是kenny（老友肯尼）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;整体感觉比第一季要棒，音乐和剧情渲染出的气氛特别不错，第二季心疼的地方太多太多了，小女孩（主角）和第一季相比就像变了一个人一样（至从李死后就坚强了许多），非常推荐第一季和第二季一起购买体验（全程就当看电影非常不错）~放个图纪念一下</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=0&id=822458087&auto=0&height=430"></iframe>
+
+<p><img src="/img/random/The%20Walking%20Dead%20Season%20Two%20TG/zhitu-des/1.png" alt="行尸走肉2"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+            <tag> 行尸走肉系列 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《ICEY（艾希）》全成就通关]]></title>
+      <url>/ICEY%20TG/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-10 21:20:46</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;国产动作游戏《ICEY(艾希)》，我这个强迫症，第二周目打了一天拿了全成就（表白旁白君），这游戏是2016年11月17日在Steam上面发售的，18日我买了《ICEY》在寝室两小时通关（没拿全成就）。</p>
+<blockquote>
+<p>全成就的时候遇到一个小bug：成就&lt;哈斯塔（获得所有成就）&gt;，拿完所有成就后，别退游戏，退回首页菜单就能拿到&lt;哈斯塔&gt;~</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;总得来说，这款游戏的创意特别特别不错（再次表白旁君），抛开创意就是一款优秀的动作游戏，支持国产！</p>
+<hr>
+<h4 id="在ICEY艾希中，隐藏关卡触发条件为："><a href="#在ICEY艾希中，隐藏关卡触发条件为：" class="headerlink" title="在ICEY艾希中，隐藏关卡触发条件为："></a>在ICEY艾希中，隐藏关卡触发条件为：</h4><blockquote>
+<p>剧情中完成以下奖杯：“重启重启重启”、“为了奖杯!”、“艾希，佑希”、“外面的枪声”、“下一首……是?”、“潘多拉的箱子”以及“神的九十亿个名字”。</p>
+<p>完成后，在选择关卡界面会出现“主之名”这里需要玩家输入密码。</p>
+<p>密码为：H、A、S、T、U、R</p>
+<p>完成隐藏关卡后，就能获得&lt;为了，与你重逢&gt;。</p>
+</blockquote>
+<p><img src="/img/random/ICEY%20TG/zhitu-des/1.png" alt="ICEY（艾希）"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《行尸走肉》五章全成就通关]]></title>
+      <url>/The%20Walking%20Dead%20TG/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-06 18:20:36  </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Steam夏季打折，入的这款2012年的老游戏The Walking Dead（行尸走肉）今天直播通关了，慢慢悠悠的12个小时通关五章。</p>
+<blockquote>
+<p>第一章：A New Day（2小时10分钟）<br>第二章：Starved for Help（2小时18分钟）<br>第三章：Long Road Ahead（2小时12分钟）<br>第四章：Around Every Corner（3小时28分钟）<br>第五章：No Time Left（1小时20分钟）</p>
+<p>官方行尸走肉没有汉化，不怕我们有民间汉化，下面是下载地址（安装方法也在里面）：</p>
+<ul>
+<li><a href="http://pan.baidu.com/s/1jIGDcBc" target="_blank" rel="noopener">百度云·汉化下载</a></li>
+</ul>
+</blockquote>
+<p><img src="/img/random/The%20Walking%20Dead%20TG/zhitu-des/1.png" alt="行尸走肉"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Steam </tag>
+            
+            <tag> 行尸走肉系列 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《英雄无敌3》老游戏体验]]></title>
+      <url>/HoMM3/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-22   </p>
+<p>  1999年的回合制策略魔幻老游戏《英雄无敌3》，听那些小伙伴说当时比较火，就一起尝试了一下这款老游戏，玩的盗版加游侠联机，版本是3.45高清版。</p>
+<p>内战4个小时，过瘾也特别累，猥琐发育的我 和队友终于是赢了~（我能说我连人机都打不过么，惨笑）上图纪念一下（不可多得的老游戏）</p>
+<p>红色是我，土色是队友</p>
+<blockquote>
+<ul>
+<li>图床挂了，以前的图没有了（旋风爆哭），这里放一张画面一样的网图</li>
+</ul>
+</blockquote>
+<p><img src="/img/random/HoMM3/zhitu-des/1.jpg" alt="英雄无敌3"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《Minecraft》补票]]></title>
+      <url>/Buy%20Minecraft/</url>
+      <content type="html"><![CDATA[<p>  记录时间：2017-7-06 00:49:49    </p>
+<p>  从初一开始玩我的世界到现在已经有4年左右的时间了，最近中国网易代理的Minecraft快公测了，也想起了玩了这么多年盗版Minecraft，是时候补一下票了。</p>
+<blockquote>
+<ul>
+<li>Minecraft正版购买地址：<a href="https://minecraft.net" target="_blank" rel="noopener">https://minecraft.net</a></li>
+<li>Minecraft中国网易官方：<a href="http://mc.163.com" target="_blank" rel="noopener">http://mc.163.com</a></li>
+</ul>
+</blockquote>
+<p><img src="/img/random/Buy%20Minecraft/zhitu-des/1.png" alt="Minecraft"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 游戏 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+            <tag> Minecraft </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Win2008R2IIS7+XAMPP(FastCGI)PHP环境搭建]]></title>
+      <url>/2017121601/</url>
+      <content type="html"><![CDATA[<p>Mark 方便以后用</p>
+<p>以前没有碰过虚拟机，这次做项目的时候学校需要用虚拟机搭建服务器。</p>
+<p>项目需要PHP环境，在这里找到一个比较方便的教程，只不过我的方法有所不同。</p>
+<p>教程地址(原标题)：<a href="http://blog.csdn.net/chancle/article/details/54895257" target="_blank" rel="noopener">Win2012 R2 IIS8.5+PHP(FastCGI)+MySQL运行环境搭建教程</a></p>
+<h3 id="第一步、安装XAMPP"><a href="#第一步、安装XAMPP" class="headerlink" title="第一步、安装XAMPP"></a>第一步、安装XAMPP</h3><p>原教程中环境软件安装步骤就替换成安装XAMPP<br>XAMPP 是一个集成的易于安装的WEB环境部署包，其中包括了一下程序：Apache，MySQL, PHP, Perl. </p>
+<blockquote>
+<p><img src="http://www.xampp.cc/favicon.ico" width="32" height="32" alt="XAMPP" align="center"><a href="https://pan.baidu.com/s/1kVOlDqR" target="_blank" rel="noopener">XAMPP（百度云）</a><br><a href="http://www.xampp.cc/" target="_blank" rel="noopener">http://www.xampp.cc/（官网）</a> </p>
+</blockquote>
+<h3 id="第二步、FastCGI添加模块映射"><a href="#第二步、FastCGI添加模块映射" class="headerlink" title="第二步、FastCGI添加模块映射"></a>第二步、FastCGI添加模块映射</h3><p>原教程中可执行文件地址替换成 XAMPP目录下PHP的php-cgi.exe</p>
+<h3 id="其他步骤相同"><a href="#其他步骤相同" class="headerlink" title="其他步骤相同"></a>其他步骤相同</h3><hr>
+<h3 id="可能会遇到的问题："><a href="#可能会遇到的问题：" class="headerlink" title="可能会遇到的问题："></a>可能会遇到的问题：</h3><h4 id="1、-xammp的apache启动失败："><a href="#1、-xammp的apache启动失败：" class="headerlink" title="1、 xammp的apache启动失败："></a>1、 xammp的apache启动失败：</h4><p>答：</p>
+<blockquote>
+<h6 id="1-没有安装VC9的环境"><a href="#1-没有安装VC9的环境" class="headerlink" title="1) 没有安装VC9的环境"></a>1) 没有安装VC9的环境</h6><p>要判断是否是这一问题十分简单，只要单独运行C:\xampp\apache\bin\httpd.exe时（这个是我的安装路径），提示“系统无法执行指定的程序”（这个是用命令行运行后的提示），如果是直接双击httpd.exe，则会提示环境配置错误。<br>解决办法：直接下载vcredist_x86.exe。</p>
+<h6 id="2-端口被其它程序占用"><a href="#2-端口被其它程序占用" class="headerlink" title="2) 端口被其它程序占用"></a>2) 端口被其它程序占用</h6><p>有时，并不是安装完VC9环境就可以直接运行Apache，其中一个重要的原因，便是Apache服务器所使用的端口被其它程序占用了。<br>解决办法：<br>1．80端口冲突，解决方法：<br>打开目录C:\xampp\apache\conf(我的安装目录为C:\xampp)下的httpd.conf文件，将Listen 80和 ServerName localhost:80中的80改为8081或其它值（尽量不要使用0－1023端口，这个是系统保留端口），要保持一致。<br>2．监听端口443冲突，解决方法：<br>打开目录C:\xampp\apache\conf\extra (我的安装目录为C:\xampp)下的httpd-ssl.conf文件，将Listen 443这句注释掉：# Listen 443或将443改为4433或其它值（尽量不要使用0－1023）。<br>3．Apache启动后又马上停止，一种情况是，Apache已经正常启动，只是Xampp的控制面板没有显示而已，你可以通过在浏览器中输入 <a href="http://localhost:8081" target="_blank" rel="noopener">http://localhost:8081</a> ，如果能直接进入Apache服务器的控制页面就是没有问题的了。另一种情况，原因可能是由于安装了oracle10g，与其中的perl5lib变量发生了冲突，解决方法有3种：<br>&nbsp;&nbsp;&nbsp;&nbsp; (1) 打开目录C:\xampp\apache\conf(我的安装目录为C:\xampp)下的httpd.conf文件，<br>将Include “conf/extra/httpd-perl.conf”注释掉：# Include “conf/extra/httpd-perl.conf”。<br>&nbsp;&nbsp;&nbsp;&nbsp; (2) 打开目录C:\xampp\apache\conf\extra (我的安装目录为C:\xampp)下的httpd-perl.conf文件，找到LoadModule perl_module modules/mod_perl.so，在下面一行增加PerlSwitches –T，保存文件即可。<br>&nbsp;&nbsp;&nbsp;&nbsp; (3) 修改环境变量：在环境变量path中增加C:\xampp\perl\lib; C:\xampp\perl\site\lib;即可。</p>
+<p><a href="http://blog.csdn.net/kunlong0909/article/details/7716715" target="_blank" rel="noopener">原文章</a></p>
+</blockquote>
+<h4 id="2、-Xampp的Mysql密码怎么修改（默认空密码）"><a href="#2、-Xampp的Mysql密码怎么修改（默认空密码）" class="headerlink" title="2、 Xampp的Mysql密码怎么修改（默认空密码）"></a>2、 Xampp的Mysql密码怎么修改（默认空密码）</h4><p>答：</p>
+<blockquote>
+<p>1） 登陆mysql连接 账号：root 密码：空（默认）<br>2） 找到mysql表 建立查询 UPDATE user SET password=password(‘123456’) WHERE user=’root’; 修改成自己需要的密码。<br>3） 找到配置文件，如我的是：C:\xampp\phpMyAdmin\config.inc.php<br>找到如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;auth_type&apos;] = &apos;config&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;user&apos;] = &apos;root&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;password&apos;] = &apos;&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;extension&apos;] = &apos;mysql&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;AllowNoPassword&apos;] = true;</span><br></pre></td></tr></table></figure></p>
+<p>修改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;auth_type&apos;] = &apos;config&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;user&apos;] = &apos;root&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;password&apos;] = &apos;刚才在数据库中改的密码（123456）&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;extension&apos;] = &apos;mysql&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;AllowNoPassword&apos;] = true;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> 记号 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> 虚拟机 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hi~]]></title>
+      <url>/Hi/</url>
+      <content type="html"><![CDATA[<h2 id="前往关于"><a href="#前往关于" class="headerlink" title="前往关于"></a><a href="/about">前往关于</a></h2>]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+            <category> 装备 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 记号 </tag>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 装备 </tag>
+            
+            <tag> 游戏 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+    
+    <entry>
+      <title><![CDATA[关于我 🐾]]></title>
+      <url>/about/index.html</url>
+      <content type="html"><![CDATA[<hr>
+<p>可以叫我：豆豆 / Amos</p>
+<p>这里一位还在学习的小朋友，记录一下零碎的生活。<br>≖‿≖✧</p>
+<p>一年四季都爱吃 🍦 冰激凌， 🥛 奶茶 &amp; 牛奶！<br>游戏最爱：Minecraft</p>
+<p><img src="/img/daily_pic.gif" alt="1041uuu"></p>
+<hr>
+<h3 id="我在这儿"><a href="#我在这儿" class="headerlink" title="我在这儿~"></a>我在这儿~</h3><ul>
+<li><p><a target="_blank" href="mailto:amoshuke@gmail.com"><img style="border-radius:6px;" src="https://img.shields.io/badge/Email-amoshuke@gmail.com-34A853?style=flat-square&logo=Gmail" title="Email:amoshuke@gmail.com"></a></p>
+</li>
+<li><p><a target="_blank" style="text-decoration:none;" href="https://github.com/AmosHuKe"><img style="border-radius:6px;" src="https://img.shields.io/badge/GitHub-@AmosHuKe-24292E?style=flat-square&logo=Github" title="Github:AmosHuKe"> </a></p>
+<ul>
+<li><img style="border-radius:0px;" src="https://img.shields.io/github/followers/Amoshuke?label=Followers&style=social"> </li>
+<li><img style="border-radius:0px;" src="https://img.shields.io/github/stars/Amoshuke?label=Stars&style=social"></li>
+</ul>
+</li>
+<li><p><a target="_blank" href="https://steamcommunity.com/id/Amoshuke/"><img style="border-radius:6px;" src="https://img.shields.io/badge/Steam-@AmosHuKe-0b1a37?style=flat-square&logo=Steam&labelColor=134375" title="Steam:Amoshuke"></a> </p>
+<ul>
+<li><a target="_blank" href="https://steamcommunity.com/id/Amoshuke/games/?tab=all"><img style="border-radius:0px;" src="https://img.shields.io/badge/dynamic/json?label=Steam&cacheSeconds=3600&style=social&logo=steam&suffix= Games&query=$.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3DsteamGames%26queryKey%3D76561198194226983"></a> </li>
+<li><a target="_blank" href="https://steamcommunity.com/id/Amoshuke/friends/"><img style="border-radius:0px;" src="https://img.shields.io/badge/dynamic/json?label=Steam&style=social&logo=steam&cacheSeconds=3600&suffix= 位朋友&query=$.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3DsteamFriends%26queryKey%3D76561198194226983"></a></li>
+</ul>
+</li>
+<li><p><a target="_blank" href="https://jingyan.baidu.com/article/cbcede07ed4acd43f40b4d8b.html"><img style="border-radius:6px;" src="https://img.shields.io/badge/Nintendo Switch-SW--0184--2133--5540-F55344?style=flat-square&logo=nintendoswitch&labelColor=00CFE4" title="Nintendo Switch:SW-0184-2133-5540"></a></p>
+</li>
+</ul>
+<hr>
+<p>(●’◡’●)</p>
+<blockquote>
+<p>封面（赛博朋克）西班牙画师 <a href="https://www.artstation.com/josan" target="_blank" rel="noopener">Josan Gonzalez</a>  </p>
+<p>封面（像素GIF）日本画师 <a href="http://1041uuu.lofter.com/" target="_blank" rel="noopener">1041uuu</a></p>
+<p>Material Theme：<a href="https://github.com/bollnh/hexo-theme-material" target="_blank" rel="noopener">Material Theme</a></p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[朋友们]]></title>
+      <url>/links/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Photo]]></title>
+      <url>/gallery/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[标签]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+  
+</search>
