@@ -535,10 +535,10 @@ p {
         border-radius: 0;
     }
     #scheme-Paradox .index-top-block .mdl-card__media {
-        border-radius: 0px !important;
+        border-radius: 18px !important;
     }
     #scheme-Paradox .mdl-card__media {
-        border-radius: 0px !important;
+        border-radius: 18px !important;
     }
 }
 #scheme-Paradox .material-layout .mdl-card__title {
@@ -549,12 +549,13 @@ p {
     display: flex;
     box-sizing: border-box;
     padding: 24.72px;
+    margin: 12px 12px 0px 12px;
     background-size: cover;
     cursor: pointer;
     flex-grow: 1;
     flex-direction: row;
     align-items: flex-end;
-    border-radius: 0 0 24px 24px;
+    border-radius: 18px;
 }
 #scheme-Paradox .material-layout .mdl-card__media a,
 #scheme-Paradox .material-layout .mdl-card__title a {
@@ -2224,21 +2225,21 @@ p {
 /************/
 
 .MD-burger-icon {
-    margin: 0 0 0 1pc;
+    margin: 0 0 0 1.2pc;
     cursor: pointer;
     border: none;
-    padding: 6px;
-    background: rgba(73,80,87,.9);
+    padding: 8px;
+    background: #757575;
     border-radius: 100%;
     outline: 0;
     position: fixed;
-    top: 2pc;
+    top: 1.2pc;
     z-index: 8;
     height: 32px;
     width: 32px
 }
 .MD-burger-layer {
-    width: 20px;
+    width: 16px;
     background: #eee;
     position: relative;
     -webkit-animation-duration: 300ms;
@@ -2264,11 +2265,11 @@ p {
     animation-timing-function: ease-in-out
 }
 .MD-burger-layer:before {
-    bottom: 5px;
+    bottom: 4px;
     border-radius: 50px;
 }
 .MD-burger-layer:after {
-    top: 5px;
+    top: 4px;
     border-radius: 50px;
 }
 .MD-burger-arrow {

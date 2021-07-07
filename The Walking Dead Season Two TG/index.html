@@ -27,8 +27,6 @@
 
 
 
-        <link rel="dns-prefetch" href="https://cdn-city.livere.com">
-
 
 
 
@@ -84,7 +82,7 @@
     <!-- Import CSS -->
     
         <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?VuEJjuO9qUybPHUIM5ocCA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?wmhMEdezYD4GGXviggpXcQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?r2MKLqMiGad9tCkPZ9lLqQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
 
@@ -170,7 +168,7 @@
 
     <style>
       body{
-        background-color: #EDF1F7;
+        background-color: #EAEBE6;
       }
 
       /* blog_info bottom background */
@@ -309,7 +307,10 @@
 
     <!-- Custom Head -->
     
-
+    
+    <!-- 评论Waline -->
+    <script src="//cdn.jsdelivr.net/npm/@waline/client"></script>
+    
 </head>
 
 
@@ -504,33 +505,76 @@
 
 
                 
-
+                    
                 <!-- Post Comments -->
                 
                     
-    <!-- 使用 来必力 -->
-<div id="livere-comment">
-    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjk5MC85NTUy">
-	<script type="text/ls-javascript" id="livere-comment-js">
-   (function(d, s) {
-       var j, e = d.getElementsByTagName(s)[0];
-       if (typeof LivereTower === 'function') { return; }
-       j = d.createElement(s);
-       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-       j.async = true;
-       e.parentNode.insertBefore(j, e);
-   })(document, 'script');
-	</script>
-</div>
-</div>
-<style>
-    #livere-comment{
-        background-color: #eee;
-        padding: 2pc;
-    }
-</style>
-
                 
+                
+                <!-- 评论Waline -->
+                <div id="amosblogwaline" style="padding: 12px;padding-bottom: 150px;"></div>
+                <style>
+                    :root {
+                        /* 徽章 */
+                        --waline-badge-color: #134375;
+                    }
+                </style>
+                <script>
+                    // 中文默认
+                    const locale = {
+                        nick: '昵称:',
+                        nickError: '昵称不能少于3个字符',
+                        mail: '邮箱:',
+                        mailError: '请填写正确的邮件地址，方便收到回复提醒',
+                        link: '网站（选填）:',
+                        placeholder: '在这里说些什么吧（📬 上方填写邮箱，才能收到回复提醒）',
+                        sofa: '来发表评论吧 🎈',
+                        submit: '提交',
+                        reply: '回复',
+                        cancelReply: '取消回复',
+                        comment: '评论',
+                        more: '加载更多...',
+                        preview: '预览',
+                        emoji: '表情',
+                        uploadImage: '上传图片',
+                        seconds: '秒前',
+                        minutes: '分钟前',
+                        hours: '小时前',
+                        days: '天前',
+                        now: '刚刚',
+                        uploading: '正在上传',
+                        login: '登录',
+                        logout: '退出',
+                        admin: '正在吃🍦的博主',
+                        word: '字',
+                        wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+                    };
+                    Waline({
+                        el: '#amosblogwaline',
+                        serverURL: 'https://amos-blog-waline.vercel.app',
+                        avatar: 'retro',
+                        emoji: [
+                            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+                            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/weibo',
+                            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+                        ],
+                        lang: 'zh-CN',
+                        requiredFields: ['nick','mail'],
+                        login: 'enable',
+                        wordLimit: [1,300],
+                        visitor: true, // 阅读量统计
+                        highlight: true,
+                        locale
+                    });
+                    // 删除图片上传
+                    setTimeout(() => {
+                        const walineImageUpload = document.getElementById('waline-image-upload');
+                        walineImageUpload.nextSibling.remove(); 
+                        walineImageUpload.remove();  
+                    }, 1000);
+                    
+                </script>
+
             </div>
 
             <!-- Post Prev & Next Nav -->
@@ -764,8 +808,26 @@ It will not impact the appearance and can give developers a lot of support :)
     <!-- Sidebar Image -->
     
     <span id="footer-image">
-        <a href="https://github.com/AmosHuKe" target="_blank" title="AmosHuKe">
-            <img src="/img/footer/footer_ico-github.svg" alt="AmosHuKe"><!--
+        <a href="/atom.xml" target="_blank" title="RSS">
+            <img src="/img/footer/rss-fill.svg" alt="RSS"><!--
+     --></a>
+    </span>
+
+    <span id="footer-image">
+        <a href="mailto:amoshuke@gmail.com" target="_blank" title="Email">
+            <img src="/img/footer/mail-line.svg" alt="Email"><!--
+     --></a>
+    </span>
+
+    <span id="footer-image">
+        <a href="https://github.com/AmosHuKe" target="_blank" title="Github">
+            <img src="/img/footer/github-fill.svg" alt="Github"><!--
+     --></a>
+    </span>
+
+    <span id="footer-image">
+        <a href="https://steamcommunity.com/id/Amoshuke/" target="_blank" title="Steam">
+            <img src="/img/footer/steam-fill.svg" alt="Steam"><!--
      --></a>
     </span>
 
@@ -808,12 +870,6 @@ It will not impact the appearance and can give developers a lot of support :)
     
 
     <!-- Github -->
-    
-        <a href="https://github.com/AmosHuKe" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
-                <span class="visuallyhidden">Github</span>
-            </button><!--
-     --></a>
     
 
     <!-- LinkedIn -->
@@ -939,8 +995,6 @@ It will not impact the appearance and can give developers a lot of support :)
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-   
 
 
 
