@@ -624,12 +624,28 @@
                         locale
                     });
                     // 删除图片上传
+                    // 删除默认的状态
+                    const walineImageUpload = document.getElementById('waline-image-upload');
                     setTimeout(() => {
-                        const walineImageUpload = document.getElementById('waline-image-upload');
                         walineImageUpload.nextSibling.remove(); 
                         walineImageUpload.remove();  
                     }, 1000);
-                    
+                    // 删除点击回复时的状态
+                    $(document).on("click",".vreply",function(){
+                        const walineImageUpload = document.getElementById('waline-image-upload');
+                        setTimeout(() => {
+                            walineImageUpload.nextSibling.remove();
+                            walineImageUpload.remove();
+                        }, 0);
+                    }); 
+                    // 删除点击取消回复时的状态
+                    $(document).on("click",".vclose",function(){
+                        const walineImageUpload = document.getElementById('waline-image-upload');
+                        setTimeout(() => {
+                            walineImageUpload.nextSibling.remove();
+                            walineImageUpload.remove();
+                        }, 0);
+                    });
                 </script>
 
             </div>
