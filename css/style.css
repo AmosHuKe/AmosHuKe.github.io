@@ -946,8 +946,8 @@ p {
     font-weight: 400;
     padding: 1pc;
     margin-top: 20px;
-    margin-right: 20px;
-    /*    white-space: nowrap*/
+    margin-right: 0px;
+    /* white-space: nowrap; */
 }
 @media screen and (max-width: 480px) {
     #scheme-Paradox #post_entry-left-info {
@@ -955,7 +955,7 @@ p {
     }
     #scheme-Paradox #post_entry-right-info {
         margin-top: 0;
-        margin-right: 0;
+        margin-right: 0px;
         width: 50%;
         padding: 1pc 2%;
         text-align: right;

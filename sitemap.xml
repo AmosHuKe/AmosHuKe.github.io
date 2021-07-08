@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://amoshk.top/about/index.html</loc>
+    <loc>https://amoshk.top/Hi/</loc>
     
-    <lastmod>2021-07-05</lastmod>
+    <lastmod>2021-07-08</lastmod>
     
   </url>
   
   <url>
-    <loc>https://amoshk.top/Hi/</loc>
+    <loc>https://amoshk.top/about/index.html</loc>
     
     <lastmod>2021-07-05</lastmod>
     
@@ -406,6 +406,48 @@
   
   <url>
     <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E8%AE%B0%E5%8F%B7/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E8%AE%B0%E5%8F%B7/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E8%AE%B0%E5%8F%B7/%E7%94%9F%E6%B4%BB/%E8%A3%85%E5%A4%87/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E7%94%9F%E6%B4%BB/%E8%A3%85%E5%A4%87/</loc>
+    <lastmod>2021-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://amoshk.top/categories/%E6%B8%B8%E6%88%8F/%E7%94%9F%E6%B4%BB/%E8%A3%85%E5%A4%87/%E8%AE%B0%E5%8F%B7/</loc>
     <lastmod>2021-07-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
