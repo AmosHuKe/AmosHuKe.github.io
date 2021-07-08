@@ -809,8 +809,8 @@ p {
 }
 #scheme-Paradox #post-toc-trigger-btn {
     position: fixed;
-    top: 5pc;
-    left: 1pc;
+    top: 4pc;
+    left: 1.2pc;
     z-index: 8;
     color: #fff;
     border-radius: 50%
@@ -965,6 +965,11 @@ p {
 #scheme-Paradox #post_entry-right-info a {
     text-decoration: none;
     font-weight: 400;
+    font-size: 12px;
+    color: #76848F;
+    background: #F1F5F9;
+    padding: 6px 8px;
+    border-radius: 6px;
 }
 #scheme-Paradox #copyright {
     margin-left: auto;
@@ -2229,7 +2234,7 @@ p {
     cursor: pointer;
     border: none;
     padding: 8px;
-    background: #757575;
+    background: #333333;
     border-radius: 100%;
     outline: 0;
     position: fixed;
