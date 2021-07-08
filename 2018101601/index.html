@@ -525,11 +525,69 @@
                 
                 
                 <!-- 评论Waline -->
-                <div id="amosblogwaline" style="padding: 12px;padding-bottom: 150px;"></div>
+                <section style="padding:12px; padding-bottom:150px; margin-top:32px;">
+                    <div style="margin-left:12px; margin-bottom:12px;"><img src="/img/icon/blog_message-emoji.svg"/> 评论</div>
+                    <div id="amosblogwaline"></div>
+                </section>
                 <style>
                     :root {
                         /* 徽章 */
                         --waline-badge-color: #134375;
+                        /* 主题色 */
+                        --waline-theme-color: #27ae60;
+                        --waline-active-color: #2ecc71;
+                        /* 布局颜色 */
+                        --waline-text-color: #444;
+                        --waline-bgcolor: rgba(234,235,230,.4);
+                        --waline-bgcolor-light: rgba(234,235,230,.3);
+                        --waline-bgcolor-hover: rgba(234,235,230,.3);
+                        --waline-border-color: #ddd;
+                        --waline-disable-bgcolor: #f8f8f8;
+                        --waline-disable-color: #F1F5F9;
+                        --waline-code-bgcolor: #282c34;
+                        /* 特殊颜色 */
+                        --waline-bq-color: #F1F5F9;
+                        /* 信息 */
+                        --waline-info-bgcolor: #f8f8f8;
+                        --waline-info-color: #999;
+                        --waline-info-font-size: 0.625em;
+                        /* 渲染选择 */
+                        --waline-border: 1px solid var(--waline-border-color);
+                        --waline-avatar-radius: 50%;
+                        --waline-box-shadow: none;
+                    }
+
+                    /* 评论框 */
+                    .v[data-class=v] .vheader {
+                    }
+                    .v[data-class=v] .vpanel {
+                        padding: 12px;
+                        border-radius: 12px;
+                        border: none;
+                    }
+                    /* 评论回复框 */
+                    .v[data-class=v] .vcard {
+                        margin-bottom: 12px;
+                        border-bottom: none; 
+                    }
+                    /* 评论回复子框 */
+                    .v[data-class=v] .vcard .vquote {
+                        border: none;
+                    }
+                    .v[data-class=v] .vcards .vcard .vitem{
+                        background: rgba(234,235,230,.3);
+                        border-radius: 12px;
+                        padding: 12px; 
+                        margin: 12px 0;
+                    }
+                    /* 回复按钮 */
+                    .v[data-class=v] .vcard .vhead .vreply {
+                        position: relative;
+                        z-index: 1;
+                    }
+                    /* 头像 */
+                    .v[data-class=v] .vcards .vitem .vuser {
+                        box-shadow: 0 12px 40px rgb(134 151 168 / 25%);
                     }
                 </style>
                 <script>
