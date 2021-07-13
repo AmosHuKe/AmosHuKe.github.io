@@ -5,8 +5,12 @@
     <entry>
       <title><![CDATA[桌面2.0 🎯]]></title>
       <url>/2021062901/</url>
-      <content type="html"><![CDATA[<p>时隔一年多的桌面，我不出意外的看腻了，生活还是需要些新鲜感。<br>空闲时正好找了一下午折腾，规划规划工作、游戏、书写的空间，买了些需要的物件，装装改改大功告成。<br>纪念一下！</p>
-<p><img src="/img/random/2021062901/zhitu-des/1.jpg" alt="computer"> </p>
+      <content type="html"><![CDATA[<p>时隔一年多的桌面，我不出意外的看腻了，生活还是需要些新鲜感。<br><br>空闲时正好找了一下午折腾，规划规划工作、游戏、书写的空间，买了些需要的物件，装装改改大功告成。<br><br><br><img src="/img/random/2021062901/zhitu-des/1.jpg" alt="桌面2.0">  </p>
+<p><center style="font-size: 12px;">🎉 纪念一下！</center><br><br></p>
+<h2 id="Version-2-0"><a href="#Version-2-0" class="headerlink" title="Version: 2.0"></a>Version: 2.0</h2><h3 id="新物件"><a href="#新物件" class="headerlink" title="新物件"></a>新物件</h3><p>1.笔记本支架：JRC（C2 黑色）<br>2.屏幕挂灯：小米显示器挂灯<br>3.智能插座：小米智能插座2代<br>4.大鼠标垫：橡儿软木碳化鼠标垫<br>5.墙面挂布：叠罗汉挂布<br><br></p>
+<h3 id="新功能"><a href="#新功能" class="headerlink" title="新功能"></a>新功能</h3><p>1.更大的工作区域<br>2.新增左侧辅助工作机位<br>3.明亮的桌面（书写）空间<br><br></p>
+<h3 id="问题修正"><a href="#问题修正" class="headerlink" title="问题修正"></a>问题修正</h3><p>1.修正因双屏全横放，导致主屏幕不在视线中心位的问题（调整支架，右屏竖放），保护颈部及眼睛健康。<br>2.修正左侧辅助机位空间浪费问题，支架抬高机位，下方可存放物品。<br>3.修正桌面插线板过于杂乱的问题（挡住，遮住，眼不见为净）。<br>4.修正双屏支架倾斜问题。<br><br></p>
+<p><img src="/img/random/2021062901/zhitu-des/2.jpg" alt="挂画">  </p>
 ]]></content>
       
         <categories>
@@ -1139,7 +1143,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 <p>(●’◡’●)</p>
 <blockquote>
 <p>封面（赛博朋克）西班牙画师 <a href="https://www.artstation.com/josan" target="_blank" rel="noopener">Josan Gonzalez</a>  </p>
-<p>封面（像素GIF）日本画师 <a href="http://1041uuu.lofter.com/" target="_blank" rel="noopener">1041uuu</a></p>
+<p>封面（像素GIF）日本画师 <a href="https://twitter.com/1041uuu" target="_blank" rel="noopener">1041uuu</a></p>
 <p>Material Theme：<a href="https://github.com/bollnh/hexo-theme-material" target="_blank" rel="noopener">Material Theme</a></p>
 </blockquote>
 ]]></content>
